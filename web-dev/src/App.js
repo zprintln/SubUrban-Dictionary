@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import NavigationSidebar from "./components/nav-bar";
+import { configureStore } from "@reduxjs/toolkit";
+import { Provider } from "react-redux";
+import userReducer from "./services/user-reducer";
+import { BrowserRouter } from "react-router-dom";
+import Header from "./components/header";
+import Navigation from "./components/navigation";
+
+const store = configureStore({
+  reducer: { user: userReducer },
+});
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Header />
+        <div className="row px-5 pt-3">
+          <div className="col-2">
+            <NavigationSidebar />
+          </div>
+          <div className="col-7">
+            <Navigation />
+          </div>
+          <div className="col-3">Something temp</div>
+        </div>
+      </BrowserRouter>
+    </Provider>
   );
 }
 
