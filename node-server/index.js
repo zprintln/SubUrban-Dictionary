@@ -5,6 +5,8 @@ import "dotenv/config.js";
 import mongoose from "mongoose";
 
 import AuthController from "./src/controllers/auth-controller";
+import PostController from "./src/controllers/post-controller";
+import FavoritesController from "./src/controllers/favorites-controller";
 
 const CONNECTION_STRING =
   process.env.DB_CONNECTION_STRING || "mongodb://127.0.0.1:27017/tuiter";
@@ -37,5 +39,7 @@ app.use(session(sessionOptions));
 
 // controllers go here
 AuthController(app);
+PostController(app);
+FavoritesController(app);
 
 app.listen(process.env.PORT | 4000);

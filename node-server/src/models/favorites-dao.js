@@ -13,4 +13,4 @@ export const findFavoriteByPostAndUser = (post, user) =>
 
 export const createFavorite = (favorite) => favoritesModel.create(favorite);
 
-export const deleteFavorite = (id) => favoritesModel.deleteOne({ _id: id });
+export const deleteFavorite = (id) => favoritesModel.deleteOne({ id: id });
