@@ -4,12 +4,12 @@ import session from "express-session";
 import "dotenv/config.js";
 import mongoose from "mongoose";
 
-import AuthController from "./src/controllers/auth-controller";
-import PostController from "./src/controllers/post-controller";
-import FavoritesController from "./src/controllers/favorites-controller";
+import PostController from "./src/controllers/post-controller.js";
+import FavoritesController from "./src/controllers/favorites-controller.js";
+import AuthController from "./src/controllers/auth-controller.js";
 
 const CONNECTION_STRING =
-  process.env.DB_CONNECTION_STRING || "mongodb://127.0.0.1:27017/tuiter";
+  process.env.DB_CONNECTION_STRING || "mongodb://127.0.0.1:27017/dictionary";
 console.log("connecting to " + CONNECTION_STRING);
 mongoose.connect(CONNECTION_STRING);
 

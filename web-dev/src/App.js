@@ -5,6 +5,7 @@ import userReducer from "./services/user-reducer";
 import { BrowserRouter } from "react-router-dom";
 import Header from "./components/header";
 import Navigation from "./components/navigation";
+import RightComponent from "./components/right-bar/right-component";
 
 const store = configureStore({
   reducer: { user: userReducer },
@@ -19,10 +20,10 @@ function App() {
           <div className="col-2">
             <NavigationSidebar />
           </div>
-          <div className="col-7">
+          <div className="col-6">
             <Navigation />
           </div>
-          <div className="col-3">Something temp</div>
+          <div className="col-4"><RightComponent /></div>
         </div>
       </BrowserRouter>
     </Provider>
