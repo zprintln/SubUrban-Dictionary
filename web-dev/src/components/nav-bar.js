@@ -5,6 +5,7 @@ import {
   FaRegComment,
   FaUser,
 } from "react-icons/fa";
+import { FiLogIn } from "react-icons/fi";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 const NavigationSidebar = () => {
@@ -18,7 +19,7 @@ const NavigationSidebar = () => {
     { text: "home", icon: <FaHome />, display: () => true },
     { text: "search", icon: <FaSearch />, display: () => true },
     { text: "define", icon: <FaRegComment />, display: () => true },
-    { text: "login", icon: <FaUser />, display: () => !currentUser },
+    { text: "login", icon: <FiLogIn />, display: () => !currentUser },
     { text: "profile", icon: <FaUser />, display: () => currentUser },
   ];
   return (
@@ -40,3 +41,4 @@ const NavigationSidebar = () => {
   );
 };
 export default NavigationSidebar;
+
