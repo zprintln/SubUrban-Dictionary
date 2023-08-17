@@ -14,13 +14,26 @@ const LoginScreen = () => {
 
   const handleLogin = async () => {
     await dispatch(loginThunk({ username, password }))
-      .then(() => navigate("/profile"))
-      .catch(() => console.log("failed to log in"));
+      .then((response) => {
+        if (!response.type.includes("rejected")) {
+          navigate("/profile");
+        } else {
+          throw new Error("Failed to log in. Please check your credentials.")
+        }
+      })
+      .catch((error) => console.log(error));
   };
 
-  const handleRegister = () => {
-    dispatch(registerThunk({ username, password, isModerator }));
-    navigate("/home");
+  const handleRegister = async () => {
+    await dispatch(registerThunk({ username, password, isModerator }))
+      .then((response) => {
+        if (!response.type.includes("rejected")) {
+          navigate("/profile");
+        } else {
+          throw new Error("Failed to register. Your username is not unique.")
+        }
+      })
+      .catch((error) => console.log(error));
   };
 
   return (

@@ -18,7 +18,7 @@ function DefineScreen() {
         word: word,
         definition: definition,
         example: example,
-        author: currentUser.username,
+        user: currentUser.username,
       };
 
       await dispatch(createWordDefinitionThunk(newWordDefinition))

@@ -1,37 +1,42 @@
-import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AddWord } from "./add-word";
 import { MyWords } from "./my-words";
-import { useDispatch, useSelector } from "react-redux";
-import { getMyPostsThunk } from "../../services/word-reducer";
+import { useSelector } from "react-redux";
+import * as wordService from "../../services/word-service";
 
 const RightComponent = () => {
   const { pathname } = useLocation();
   // eslint-disable-next-line
   const [ignore, active] = pathname.split("/");
-  const [currentUser, words] = useSelector((state) => {
-    return [state.user, state.words];
+  const { currentUser } = useSelector((state) => {
+    return state.user;
   });
-  const dispatch = useDispatch();
+  const [words, setWords] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (active === "profile") {
-      dispatch(getMyPostsThunk(currentUser.username));
+    if (active === "profile" && currentUser !== null) {
+      async function getWords() {
+        setWords(await wordService.findMyWords(currentUser.username));
+      }
+
+      getWords();
     }
-  }, [dispatch, active, currentUser]);
+  }, [active, currentUser, navigate]);
 
   const shouldRenderAddWord = () => {
     return active !== "define" && active !== "login";
   };
 
   const shouldRenderMyWords = () => {
-    return active === "profile" && words.wordDefinitions.length > 0;
+    return active === "profile" && !!words && words.length > 0;
   };
 
   return (
     <div>
       {shouldRenderAddWord() && <AddWord />}
-      {shouldRenderMyWords() && <MyWords words={words.wordDefinitions} />}
+      {shouldRenderMyWords() && <MyWords words={words} />}
     </div>
   );
 };
