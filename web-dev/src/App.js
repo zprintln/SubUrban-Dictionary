@@ -1,11 +1,11 @@
-import NavigationSidebar from "./components/nav-bar";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import userReducer from "./services/user-reducer";
 import { BrowserRouter } from "react-router-dom";
-import Header from "./components/header";
+import Header from "./components/header.js";
 import Navigation from "./components/navigation";
 import RightComponent from "./components/right-bar/right-component";
+import NavigationSidebar from "./components/left-bar/nav-bar";
 
 const store = configureStore({
   reducer: { user: userReducer },

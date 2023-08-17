@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 export const MyWords = ({ words }) => {
+  console.log(words)
   return (
     <div>
       <strong style={{ fontFamily: "Inter", fontSize: 30, color: "#134FE6" }}>
@@ -20,11 +21,11 @@ export const MyWords = ({ words }) => {
         }}
       >
         {words.map((word) => (
-          <Link key={word} to={`define/${word}`}>
+          <Link key={word.word} to={`define/${word._id}`}>
             <strong
               style={{ fontFamily: "Inter", fontSize: 30, color: "#134FE6" }}
             >
-              {word}
+              {word.word}
             </strong>
           </Link>
         ))}

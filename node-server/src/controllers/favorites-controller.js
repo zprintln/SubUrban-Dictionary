@@ -1,37 +1,31 @@
 import * as favoritesDao from "../models/favorites-dao.js";
 
 const FavoritesController = (app) => {
-  const getFavorites = (req, res) => {
+  const getFavorites = async (req, res) => {
     const user = req.session["currentUser"];
-    const favorites = favoritesDao.findFavoritesByUser(user);
+    const favorites = await favoritesDao.findFavoritesByUser(user);
     return res.json(favorites);
   };
 
-  const updateFavorite = (req, res) => {
-    const post = definitionsDao.findDefinitionById(req.query.id);
-    const saved = req.query.saved;
+  const createFavorite = async (req, res) => {
+    const post = await definitionsDao.findDefinitionById(req.query.id);
+    if (post) {
+      return res.sendStatus(500); // post is already saved
+    }
+
     const currentUser = req.session["currentUser"];
+    await favoritesDao.createFavorite({ post: post, user: currentUser });
+    return res.sendStatus(200);
+  };
 
-    if (!post) {
-      return res.sendStatus(500);
-    }
-
-    const favoriteRow = favoritesDao.findFavoriteByPostAndUser(
-      post,
-      currentUser
-    );
-
-    if (favoriteRow && !saved) {
-      favoritesDao.deleteFavorite(favoriteRow.id);
-    } else if (!favoriteRow) {
-      favoritesDao.createFavorite({ post: post, user: currentUser });
-    }
-
+  const deleteFavorite = async (req, res) => {
+    await definitionsDao.deleteFavorite(req.query.id);
     return res.sendStatus(200);
   };
 
   app.get("/api/favorites", getFavorites);
-  app.post("/api/posts/saved", updateFavorite);
+  app.post("/api/favorites", createFavorite);
+  app.delete("/api/favorites", deleteFavorite);
 };
 
 export default FavoritesController;
