@@ -11,6 +11,11 @@ export const createWordDefinitionThunk = createAsyncThunk(
   }
 );
 
+export const getMyPostsThunk = createAsyncThunk("my-posts", async (user) => {
+  const response = await wordService.findMyWords(user);
+  return response.data;
+});
+
 // Create a thunk for deleting a word definition
 export const deleteWordDefinitionThunk = createAsyncThunk(
   "word/deleteDefinition",

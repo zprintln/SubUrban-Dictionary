@@ -11,6 +11,13 @@ const PostController = (app) => {
     return res.json({}); // TODO: use external API to get some posts
   };
 
+  const getMyPosts = (req, res) => {
+    const user = req.query.user;
+    const out = definitionsDao.findAllDefinitionsByUser(user);
+
+    return res.json(out);
+  };
+
   const deletePost = (req, res) => {
     const post = definitionsDao.findDefinitionById(req.query.id);
     const user = req.session["currentUser"];
@@ -31,6 +38,7 @@ const PostController = (app) => {
 
   app.get("/api/home", getHomePosts);
   app.get("/api/search", getSearchPosts);
+  app.get("/api/my-posts", getMyPosts);
   app.delete("/api/posts/delete", deletePost);
   app.post("/api/posts/create", createPost);
 };

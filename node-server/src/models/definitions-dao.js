@@ -2,6 +2,9 @@ import definitionsModel from "./definitions-model.js";
 
 export const findAllDefinitions = () => definitionsModel.find();
 
+export const findAllDefinitionsByUser = (user) =>
+  definitionsModel.find({ user: user });
+
 export const findAllDefinitionsByWordContains = (word) =>
   definitionsModel.find({ word: `/${word}/i` });
 
