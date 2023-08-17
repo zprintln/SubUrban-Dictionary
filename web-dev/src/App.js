@@ -22,7 +22,7 @@ function App() {
           <div className="col-7">
             <Navigation />
           </div>
-          <div className="col-3">Something Temp ...</div>
+          <div className="col-3">Something temp</div>
         </div>
       </BrowserRouter>
     </Provider>
