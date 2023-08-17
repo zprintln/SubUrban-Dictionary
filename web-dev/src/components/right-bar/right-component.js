@@ -15,12 +15,10 @@ const RightComponent = () => {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    if (shouldRenderMyWords()) {
-      console.log(currentUser);
+    if (active === "profile") {
       dispatch(getMyPostsThunk(currentUser.username));
     }
-    // eslint-disable-next-line
-  }, [dispatch, active]);
+  }, [dispatch, active, currentUser]);
 
   const shouldRenderAddWord = () => {
     return active !== "define" && active !== "login";

@@ -1,22 +1,24 @@
 import * as usersDao from "../models/users-dao.js";
 
 const AuthController = (app) => {
-  const register = (req, res) => {
+  const register = async (req, res) => {
     const username = req.body.username;
-    const user = usersDao.findUserByUsername(username);
+    const user = await usersDao.findUserByUsername(username);
     if (user) {
+      console.log("User with username " + username + " already exists");
       res.sendStatus(500); // user already exists for that username
       return;
     }
-    const newUser = usersDao.createUser(req.body);
+    const newUser = await usersDao.createUser(req.body);
     req.session["currentUser"] = newUser;
     res.json(newUser);
   };
 
-  const login = (req, res) => {
+  const login = async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
-    const user = usersDao.findUserByCredentials(username, password);
+    console.log(req.body);
+    const user = await usersDao.findUserByCredentials(username, password);
     if (user) {
       req.session["currentUser"] = user;
       res.json(user);
@@ -35,7 +37,7 @@ const AuthController = (app) => {
   };
 
   const logout = async (req, res) => {
-    req.session.destroy();
+    await req.session.destroy();
     res.sendStatus(200);
   };
 

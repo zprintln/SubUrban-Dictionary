@@ -1,10 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import * as authService from "./user-service";
 
-export const loginThunk = createAsyncThunk("users/login", async (credentials) => {
-  const user = await authService.login(credentials);
-  return user;
-});
+export const loginThunk = createAsyncThunk(
+  "users/login",
+  async (credentials) => {
+    const user = await authService.login(credentials);
+    return user;
+  }
+);
 
 export const profileThunk = createAsyncThunk("users/profile", async () => {
   const response = authService.profile();
@@ -15,9 +18,12 @@ export const logoutThunk = createAsyncThunk("users/logout", async () => {
   return await authService.logout();
 });
 
-export const registerThunk = createAsyncThunk("users/register", async (user) => {
-  return await authService.register(user);
-});
+export const registerThunk = createAsyncThunk(
+  "users/register",
+  async (user) => {
+    return await authService.register(user);
+  }
+);
 
 const userSlice = createSlice({
   name: "user",

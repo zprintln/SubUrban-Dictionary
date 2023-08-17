@@ -22,7 +22,7 @@ const PostController = (app) => {
     const post = definitionsDao.findDefinitionById(req.query.id);
     const user = req.session["currentUser"];
 
-    if (!(user.moderator || post.user === user.userName)) {
+    if (!(user.moderator || post.user === user.username)) {
       return res.sendStatus(401); // unauthorized
     }
 
