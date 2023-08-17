@@ -5,7 +5,6 @@ import userReducer from "./services/user-reducer";
 import { BrowserRouter } from "react-router-dom";
 import Header from "./components/header";
 import Navigation from "./components/navigation";
-import DefineWord from "./components/define-word";
 
 const store = configureStore({
   reducer: { user: userReducer },
@@ -23,7 +22,7 @@ function App() {
           <div className="col-7">
             <Navigation />
           </div>
-          <div className="col-3"><DefineWord /></div>
+          <div className="col-3">Something Temp ...</div>
         </div>
       </BrowserRouter>
     </Provider>

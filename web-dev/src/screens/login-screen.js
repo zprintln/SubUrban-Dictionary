@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch} from 'react-redux';
 import { loginThunk, registerThunk } from '../services/user-reducer'; 
-import logoImage from '../images/logo.png';
+import logoImage from '../assets/icon.jpg';
 
 const LoginScreen = () => {
   const [username, setUsername] = useState('');
