@@ -17,7 +17,6 @@ const AuthController = (app) => {
   const login = async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
-    console.log(req.body);
     const user = await usersDao.findUserByCredentials(username, password);
     if (user) {
       req.session["currentUser"] = user;

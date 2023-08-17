@@ -6,9 +6,10 @@ import { BrowserRouter } from "react-router-dom";
 import Header from "./components/header";
 import Navigation from "./components/navigation";
 import RightComponent from "./components/right-bar/right-component";
+import wordReducer from "./services/word-reducer";
 
 const store = configureStore({
-  reducer: { user: userReducer },
+  reducer: { user: userReducer, words: wordReducer },
 });
 
 function App() {
