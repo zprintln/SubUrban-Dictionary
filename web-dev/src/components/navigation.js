@@ -14,14 +14,14 @@ const Navigation = () => {
     <Routes>
       <Route path="/home" element={<HomeScreen />} />
       <Route path="/search" element={<SearchScreen />} />
+      { <Route
+        path="/define"
+        element={currentUser ? <DefineScreen /> : <LoginScreen />}  //use line for production
+      /> }
       {/* <Route
         path="/define"
-        element={currentUser ? <DefineScreen /> : <LoginScreen />}  //commented out for testing
+        element={ <DefineScreen /> } //use line for development
       /> */}
-      <Route
-        path="/define"
-        element={ <DefineScreen /> } //use line 17-20 for production
-      />
       <Route path="/login" element={<LoginScreen />} />
       <Route path="/profile" element={<ProfileScreen />} />
     </Routes>
