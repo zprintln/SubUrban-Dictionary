@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
-import { performSearch } from '../services/search-service';
+import { useNavigate } from 'react-router-dom';
 
 const HomeScreen = () => {
     const [searchTerm, setSearchTerm] = useState('');
-    const [results, setResults] = useState([]);
+    const navigate = useNavigate();
+
+    const redirectToSearchPage = () => {
+        navigate('/search'); // Redirect to the search page 
+      };
   
     return (
       <div className="row">
@@ -14,18 +18,13 @@ const HomeScreen = () => {
             className="form-control rounded-pill ps-5"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
+            onClick={redirectToSearchPage} // Redirect to the search page
           />
           <AiOutlineSearch
             className="fs-3 position-absolute"
             style={{ left: '25px', bottom: '3px' }}
-            onClick={() => performSearch(searchTerm, setResults)} // Call with parameters
+            onClick={redirectToSearchPage} // Redirect to the search page
           />
-        </div>
-        {/* Render the search results */}
-        <div>
-          {results.map((result, index) => (
-            <div key={index}>{result.definition}</div> 
-          ))}
         </div>
         {/* Other content of the home screen */}
       </div>

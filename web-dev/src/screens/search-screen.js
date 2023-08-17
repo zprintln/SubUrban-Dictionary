@@ -14,6 +14,7 @@ const SearchScreen = () => {
             className="form-control rounded-pill ps-5"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
+            autoFocus // Focus on the input field   
           />
           <AiOutlineSearch
             className="fs-3 position-absolute"
