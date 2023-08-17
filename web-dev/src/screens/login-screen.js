@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useDispatch} from 'react-redux';
 import { loginThunk, registerThunk } from '../services/user-reducer'; 
 import logoImage from '../images/logo.png';
-import './login-screen.css'
 
 const LoginScreen = () => {
   const [username, setUsername] = useState('');
@@ -27,7 +26,7 @@ const LoginScreen = () => {
               <img
                 src={logoImage} 
                 alt="Logo"
-                className="img-fluid logo-image"
+                className="img-fluid w-50"
               />
             </div>
             <h1 className="text-center mb-4">Please sign in to post new definitions!</h1>
