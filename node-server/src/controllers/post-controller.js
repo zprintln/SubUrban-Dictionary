@@ -2,15 +2,13 @@ import * as definitionsDao from "../models/definitions-dao.js";
 import * as favoritesDao from "../models/favorites-dao.js";
 
 const PostController = (app) => {
-  const getExplorePosts = (req, res) => {
-    return res.json({}); // TODO: use external API to get some posts
+  const getHomePosts = (req, res) => {
+    const out = definitionsDao.findAllDefinitions();
+    return res.json(out);
   };
 
   const getSearchPosts = (req, res) => {
-    const word = req.query.word;
-    const out = definitionsDao.findAllDefinitionsByWordContains(word);
-
-    return res.json(out);
+    return res.json({}); // TODO: use external API to get some posts
   };
 
   const deletePost = (req, res) => {
@@ -31,7 +29,7 @@ const PostController = (app) => {
     return res.sendStatus(200);
   };
 
-  app.get("/api/explore", getExplorePosts);
+  app.get("/api/home", getHomePosts);
   app.get("/api/search", getSearchPosts);
   app.delete("/api/posts/delete", deletePost);
   app.post("/api/posts/create", createPost);

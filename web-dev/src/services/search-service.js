@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const SERVER_API_URL =
   process.env.NODE_SERVER_URL | "http://localhost:4000/api";
-console.log("using auth API " + SERVER_API_URL);
+
 const SEARCH_URL = `${SERVER_API_URL}/search`;
 const HOME_URL = `${SERVER_API_URL}/home`;
 
