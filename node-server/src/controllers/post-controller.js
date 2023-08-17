@@ -33,7 +33,7 @@ const PostController = (app) => {
   };
 
   const createPost = async (req, res) => {
-    await definitionsDao.createDefinition(req.body);
+    await definitionsDao.createDefinition(req.body.word);
     return res.sendStatus(200);
   };
 
