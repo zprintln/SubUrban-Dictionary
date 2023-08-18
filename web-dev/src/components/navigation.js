@@ -5,6 +5,7 @@ import LoginScreen from "../screens/login-screen";
 import ProfileScreen from "../screens/profile-screen";
 import DefineScreen from "../screens/define-screen";
 import { useSelector } from "react-redux";
+import DetailsScreen from "../screens/details-screen";
 
 const Navigation = () => {
   const { currentUser } = useSelector((state) => {
@@ -24,6 +25,7 @@ const Navigation = () => {
       /> */}
       <Route path="/login" element={<LoginScreen />} />
       <Route path="/profile" element={<ProfileScreen />} />
+      <Route path="/details/:id" element={<DetailsScreen />} />
     </Routes>
   );
 };

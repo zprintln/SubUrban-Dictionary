@@ -21,7 +21,7 @@ export const MyWords = ({ words }) => {
         }}
       >
         {words.map((word) => (
-          <Link key={word.word} to={`define/${word._id}`}>
+          <Link key={word.word} to={`details/${word._id}`}>
             <strong
               style={{ fontFamily: "Inter", fontSize: 30, color: "#134FE6" }}
             >
