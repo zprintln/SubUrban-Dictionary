@@ -1,18 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import mockData from "../data/home-data.json"; // Import the mock data
 import WordCard from "../components/word-card";
 
 const HomeScreen = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [words, setWords] = useState([]);
   const { currentUser } = useSelector((state) => state.user);
   const navigate = useNavigate();
-  
+
   const redirectToSearchPage = () => {
-    navigate('/search'); // Redirect to the search page 
+    navigate("/search"); // Redirect to the search page
   };
+
+  useEffect(() => {
+    async function getNewWords() {
+      // call service function
+      setWords(null); // do actual things
+    }
+    getNewWords();
+  });
 
   return (
     <div className="row">
@@ -20,18 +27,16 @@ const HomeScreen = () => {
         <input
           placeholder="Search a definition"
           className="form-control rounded-pill ps-5"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
           onClick={redirectToSearchPage} // Redirect to the search page
         />
         <AiOutlineSearch
           className="fs-3 position-absolute"
-          style={{ left: '25px', bottom: '3px' }}
+          style={{ left: "25px", bottom: "3px" }}
           onClick={redirectToSearchPage} // Redirect to the search page
         />
       </div>
       <div className="row mt-3">
-        {mockData.map((wordDetails) => (
+        {words.map((wordDetails) => (
           <WordCard
             key={wordDetails.id}
             wordDetails={wordDetails}
