@@ -24,7 +24,7 @@ const WordCard = ({ wordDetails, showDeleteButton, showSaveButton }) => {
           });
       }
 
-    if (showSaveButton && currentUser) {
+    if (showSaveButton) {
       getSaved();
     }
   }, [wordDetails._id, showSaveButton, currentUser]);
