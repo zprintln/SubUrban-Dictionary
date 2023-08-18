@@ -1,13 +1,12 @@
-import axios from "axios";
+import axios from 'axios'
 const SERVER_API_URL =
   process.env.NODE_SERVER_URL || "http://localhost:4000/api";
 console.log("using auth API " + SERVER_API_URL);
 const USERS_URL = `${SERVER_API_URL}/users`;
-
-const api = axios.create({ withCredentials: true });
+axios.defaults.withCredentials = true
 
 export const login = async ({ username, password }) => {
-  const response = await api.post(`${USERS_URL}/login`, {
+  const response = await axios.post(`${USERS_URL}/login`, {
     username: username,
     password: password,
   });
@@ -16,12 +15,12 @@ export const login = async ({ username, password }) => {
 };
 
 export const logout = async () => {
-  const response = await api.post(`${USERS_URL}/logout`);
+  const response = await axios.post(`${USERS_URL}/logout`);
   return response.data;
 };
 
 export const register = async ({ username, password, isModerator }) => {
-  const response = await api.post(`${USERS_URL}/register`, {
+  const response = await axios.post(`${USERS_URL}/register`, {
     username: username,
     password: password,
     moderator: isModerator,
@@ -30,6 +29,6 @@ export const register = async ({ username, password, isModerator }) => {
 };
 
 export const profile = async () => {
-  const response = await api.post(`${USERS_URL}/profile`);
+  const response = await axios.post(`${USERS_URL}/profile`);
   return response;
 };

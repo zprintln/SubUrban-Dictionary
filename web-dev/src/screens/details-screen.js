@@ -10,20 +10,24 @@ const DetailsScreen = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const details = await fetchWordDetails(id); 
+        const details = await fetchWordDetails(id);
         setWordDetails(details);
       } catch (error) {
         console.error("Error fetching word details:", error);
       }
     };
 
-    fetchData(); 
+    fetchData();
   }, [id]);
 
   return (
     <div className="container mt-5">
       {wordDetails && (
-        <WordCard wordDetails={wordDetails} showDeleteButton={true} showSaveButton={true} isSaved={false} />
+        <WordCard
+          wordDetails={wordDetails}
+          showDeleteButton={true} // TODO: should only show if is mod or is person who posted it
+          showSaveButton={true}
+        />
       )}
     </div>
   );
