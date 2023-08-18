@@ -1,24 +1,20 @@
 import axios from "axios";
 const SERVER_API_URL =
   process.env.NODE_SERVER_URL || "http://localhost:4000/api";
-console.log("using auth API " + SERVER_API_URL);
 const DEFINE_URL = `${SERVER_API_URL}/posts`;
-const HOME_URL = `${SERVER_API_URL}/home`;
-
-const api = axios.create({ withCredentials: true });
 
 export const defineWord = async (word) => {
   try {
-    const response = await api.post(`${DEFINE_URL}/create`, { word });
+    const response = await axios.post(`${DEFINE_URL}/create`, { word });
     return response.data;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const deleteWordDefinition = async (wordId) => {
+export const deleteWordDefinition = async (wordId, user) => {
   try {
-    const response = await api.delete(`${HOME_URL}/${wordId}`);
+    const response = await axios.delete(`${SERVER_API_URL}/posts?id=${wordId}&user=${user}`);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -27,7 +23,51 @@ export const deleteWordDefinition = async (wordId) => {
 
 export const findMyWords = async (user) => {
   try {
-    const response = await api.get(`${SERVER_API_URL}/my-posts?user=${user}`);
+    const response = await axios.get(`${SERVER_API_URL}/my-posts?user=${user}`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchWordDetails = async (wordId) => {
+  try {
+    const response = await axios.get(
+      `${SERVER_API_URL}/word-details?id=${wordId}`
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchIsSaved = async (id, user) => {
+  try {
+    const response = await axios.get(
+      `${SERVER_API_URL}/favorites/is-saved?id=${id}&user=${user}`
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const addFavoriteWord = async (id, user) => {
+  try {
+    const response = await axios.post(`${SERVER_API_URL}/favorites?id=${id}`, {
+      user,
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteFavoriteWord = async (id, user) => {
+  try {
+    const response = await axios.delete(
+      `${SERVER_API_URL}/favorites?id=${id}&user=${user}`
+    );
     return response.data;
   } catch (error) {
     console.log(error);

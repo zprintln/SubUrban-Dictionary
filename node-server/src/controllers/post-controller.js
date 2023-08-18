@@ -1,7 +1,12 @@
 import * as definitionsDao from "../models/definitions-dao.js";
-import * as favoritesDao from "../models/favorites-dao.js";
+import * as usersDao from "../models/users-dao.js";
 
 const PostController = (app) => {
+  const getPost = async (req, res) => {
+    const out = await definitionsDao.findDefinitionById(req.query.id);
+    return res.json(out);
+  };
+
   const getHomePosts = async (req, res) => {
     const out = await definitionsDao.findAllDefinitions();
     return res.json(out);
@@ -9,7 +14,7 @@ const PostController = (app) => {
 
   const getSearchPosts = async (req, res) => {
     const word = req.query.word;
-    const out = await definitionsDao.findAllDefinitionsByWordContains(word);
+    const out = await definitionsDao.findAllDefinitionsByWordContains(word); // TODO: make use external API
 
     return res.json(out);
   };
@@ -22,13 +27,13 @@ const PostController = (app) => {
 
   const deletePost = async (req, res) => {
     const post = await definitionsDao.findDefinitionById(req.query.id);
-    const user = req.session["currentUser"];
+    const user = await usersDao.findUserByUsername(req.query.user);
 
     if (!(user.moderator || post.user === user.username)) {
       return res.sendStatus(401); // unauthorized
     }
 
-    await definitionsDao.deleteDefinition(post.id);
+    await definitionsDao.deleteDefinition(post._id);
     return res.sendStatus(200);
   };
 
@@ -37,10 +42,11 @@ const PostController = (app) => {
     return res.sendStatus(200);
   };
 
+  app.get("/api/word-details", getPost);
   app.get("/api/home", getHomePosts);
   app.get("/api/search", getSearchPosts);
   app.get("/api/my-posts", getMyPosts);
-  app.delete("/api/posts/delete", deletePost);
+  app.delete("/api/posts", deletePost);
   app.post("/api/posts/create", createPost);
 };
 

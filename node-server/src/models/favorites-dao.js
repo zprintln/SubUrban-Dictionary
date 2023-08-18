@@ -3,14 +3,14 @@ import favoritesModel from "./favorites-model.js";
 export const findAllFavorites = () => favoritesModel.find();
 
 export const findFavoritesByUser = (user) =>
-  favoritesModel.find({ user: user.username });
+  favoritesModel.find({ user: user });
 
 export const findFavoritesByPost = (post) =>
-  favoritesModel.find({ post: post });
+  favoritesModel.find({ definition: post });
 
 export const findFavoriteByPostAndUser = (post, user) =>
-  favoritesModel.findOne({ post: post, user: user.username });
+  favoritesModel.findOne({ definition: post, user: user });
 
 export const createFavorite = (favorite) => favoritesModel.create(favorite);
 
-export const deleteFavorite = (id) => favoritesModel.deleteOne({ id: id });
+export const deleteFavorite = (id, user) => favoritesModel.deleteOne({ definition: id, user: user });

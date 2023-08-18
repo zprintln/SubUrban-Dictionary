@@ -11,6 +11,16 @@ export const createWordDefinitionThunk = createAsyncThunk(
   }
 );
 
+// Create a thunk for fetching word details by id
+export const fetchWordDetailsThunk = createAsyncThunk(
+  "word/fetchWordDetails",
+  async (wordId) => {
+    // Call service function to fetch word details
+    const response = await wordService.fetchWordDetails(wordId);
+    return response.data; // Assuming service returns the fetched details
+  }
+);
+
 export const getMyPostsThunk = createAsyncThunk("my-posts", async (user) => {
   const response = await wordService.findMyWords(user);
   return response.data;
@@ -23,6 +33,16 @@ export const deleteWordDefinitionThunk = createAsyncThunk(
     // Call service function to delete the word definition
     await wordService.deleteWordDefinition(wordId);
     return wordId; // Return the wordId to indicate which definition was deleted
+  }
+);
+
+//Create a thunk for adding a word to the favorites list
+export const addFavoriteWordThunk = createAsyncThunk(
+  "word/addFavoriteWord",
+  async (word) => {
+    // Call service function to add the word to the favorites list
+    const response = await wordService.addFavoriteWord(word);
+    return response.data;
   }
 );
 
@@ -53,6 +73,20 @@ const wordSlice = createSlice({
     [deleteWordDefinitionThunk.rejected]: (state, action) => {
       console.log(action.error);
     },
+    [fetchWordDetailsThunk.fulfilled]: (state, { payload }) => {
+      // Update the wordDetails in the state
+      state.wordDetails = payload;
+    },
+    [fetchWordDetailsThunk.rejected]: (state, action) => {
+      console.log(action.error);
+    },
+    [addFavoriteWordThunk.fulfilled]: (state, { payload }) => {
+      // Update the wordDetails in the state
+      state.wordDetails = payload;
+    },
+    [addFavoriteWordThunk.rejected]: (state, action) => {
+      console.log(action.error);
+    }
   },
 });
 

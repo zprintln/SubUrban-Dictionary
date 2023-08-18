@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 
 export const MyWords = ({ words }) => {
-  console.log(words)
   return (
     <div>
       <strong style={{ fontFamily: "Inter", fontSize: 30, color: "#134FE6" }}>
