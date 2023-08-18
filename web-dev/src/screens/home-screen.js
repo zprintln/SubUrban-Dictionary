@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
-import { AiOutlineSearch } from 'react-icons/ai';
-import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import WordCardList from '../components/word-card-list';
-import mockData from '../data/home-data.json'; // Import the mock data
-
+import React, { useState } from "react";
+import { AiOutlineSearch } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import mockData from "../data/home-data.json"; // Import the mock data
+import WordCard from "../components/word-card";
 
 const HomeScreen = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -32,7 +31,14 @@ const HomeScreen = () => {
         />
       </div>
       <div className="row mt-3">
-          <WordCardList wordList={mockData} showDeleteButton={!!currentUser} showSaveButton={!!currentUser} />
+        {mockData.map((wordDetails) => (
+          <WordCard
+            key={wordDetails.id}
+            wordDetails={wordDetails}
+            showDeleteButton={!!currentUser}
+            showSaveButton={!!currentUser}
+          />
+        ))}
       </div>
     </div>
   );
