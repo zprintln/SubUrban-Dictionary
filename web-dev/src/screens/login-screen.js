@@ -21,7 +21,7 @@ const LoginScreen = () => {
           throw new Error("Failed to log in. Please check your credentials.")
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => alert(error));
   };
 
   const handleRegister = async () => {
@@ -33,7 +33,7 @@ const LoginScreen = () => {
           throw new Error("Failed to register. Your username is not unique.")
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => alert(error));
   };
 
   return (
