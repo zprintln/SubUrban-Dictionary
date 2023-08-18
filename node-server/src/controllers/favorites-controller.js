@@ -2,7 +2,7 @@ import * as favoritesDao from "../models/favorites-dao.js";
 
 const FavoritesController = (app) => {
   const getFavorites = async (req, res) => {
-    const user = req.session["currentUser"];
+    const user = req.query.user;
     const favorites = await favoritesDao.findFavoritesByUser(user);
     return res.json(favorites);
   };
