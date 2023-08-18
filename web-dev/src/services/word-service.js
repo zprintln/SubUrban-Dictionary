@@ -33,3 +33,22 @@ export const findMyWords = async (user) => {
     console.log(error);
   }
 };
+
+export const fetchWordDetails = async (wordId) => {
+  try {
+    const response = await api.get(`/word-details/${wordId}`); 
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const addFavoriteWord = async (word) => {
+  try {
+    const response = await api.post(`${SERVER_API_URL}/favorites`, { word });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
