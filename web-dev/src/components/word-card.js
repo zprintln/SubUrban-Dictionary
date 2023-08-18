@@ -7,7 +7,9 @@ import { useSelector } from "react-redux";
 const WordCard = ({ wordDetails, showDeleteButton, showSaveButton }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
-  const formattedDate = new Date(wordDetails.posted_at).toDateString();
+  const formattedDate = new Date(wordDetails.posted_at);
+  const month = formattedDate.toLocaleString('default', { month: 'long' });
+  const year = formattedDate.getFullYear();
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => {
     return state.user;
@@ -15,17 +17,18 @@ const WordCard = ({ wordDetails, showDeleteButton, showSaveButton }) => {
 
   useEffect(() => {
     async function getSaved() {
-      await wordService
-        .fetchIsSaved(wordDetails._id, currentUser.username)
-        .then((data) => {
-          setIsSaved(data.saved);
-        });
-    }
+        await wordService
+          .fetchIsSaved(wordDetails._id, currentUser.username)
+          .then((data) => {
+            setIsSaved(data.saved);
+          });
+      }
 
-    if (showSaveButton) {
+    if (showSaveButton && currentUser) {
       getSaved();
     }
   }, [wordDetails._id, showSaveButton, currentUser]);
+
 
   const handleSave = async () => {
     setIsLoading(true);
@@ -67,8 +70,8 @@ const WordCard = ({ wordDetails, showDeleteButton, showSaveButton }) => {
   };
 
   const canDelete = () => {
-    return currentUser.moderator || wordDetails.user === currentUser.username;
-  };
+    return currentUser && (currentUser.moderator || wordDetails.user === currentUser.username);
+  };  
 
   return (
     <div className="card">
@@ -82,16 +85,15 @@ const WordCard = ({ wordDetails, showDeleteButton, showSaveButton }) => {
         </p>
         <p>
           <b>
-            by&nbsp;<span className="text-primary">{wordDetails.user}</span>
-            {formattedDate}
+            By&nbsp;<span className="text-primary">{wordDetails.user}</span>&nbsp;
+            {month}, {year}
           </b>
         </p>
         {showSaveButton && (
           <button
+            className={`btn ${isSaved ? 'btn-success' : 'btn-outline-success'}`}
             style={{
               borderRadius: 50,
-              backgroundColor: isSaved ? "#32DE8A" : "white",
-              border: "2px solid black",
             }}
             onClick={handleSave}
             disabled={isLoading}
@@ -99,15 +101,14 @@ const WordCard = ({ wordDetails, showDeleteButton, showSaveButton }) => {
             <BiBookmark /> {isSaved ? "Saved" : "Save"}
           </button>
         )}
+
         &nbsp;
         {canDelete() && showDeleteButton && (
           <button
             style={{
               borderRadius: 50,
-              backgroundColor: "#32DE8A",
-              border: "2px solid black",
             }}
-            className="ml-2"
+            className="ml-2 btn btn-outline-danger"
             onClick={handleDelete}
             disabled={isLoading}
           >

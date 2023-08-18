@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import WordCardList from '../components/word-card-list';
+import mockData from '../data/home-data.json'; // Import the mock data
+
 
 const HomeScreen = () => {
     const [searchTerm, setSearchTerm] = useState('');
+    const { currentUser } = useSelector((state) => state.user); 
     const navigate = useNavigate();
 
     const redirectToSearchPage = () => {
@@ -26,7 +31,9 @@ const HomeScreen = () => {
             onClick={redirectToSearchPage} // Redirect to the search page
           />
         </div>
-        {/* Other content of the home screen */}
+        <div className="row mt-3">
+          <WordCardList wordList={mockData} showDeleteButton={!!currentUser} showSaveButton={!!currentUser} />
+        </div>
       </div>
     );
   };
