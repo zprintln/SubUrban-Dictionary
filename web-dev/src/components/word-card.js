@@ -1,21 +1,23 @@
 import React, { useState } from 'react';
 import { BiBookmark } from 'react-icons/bi';
 import { Button } from 'react-bootstrap';
-import { deleteWordDefinition, addFavoriteWord } from '../services/word-service'; 
+import { deleteWordDefinition, addFavoriteWord } from '../services/word-service';
+import { useNavigate } from 'react-router-dom';
 
-const WordCard = ({ wordDetails, showDeleteButton, showSaveButton, isSaved }) => {
+const WordCard = ({ wordDetails, showDeleteButton, showSaveButton }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [isSaved, setIsSaved] = useState(false); 
   const postedDate = new Date(wordDetails.posted_at);
   const formattedDate = postedDate.toDateString();
+  const navigate = useNavigate();
 
   const handleSave = async () => {
     setIsLoading(true);
     try {
       await addFavoriteWord(wordDetails);
-      alert('Word saved to your favorites!'); 
+      setIsSaved(true);
     } catch (error) {
-      alert('Something went wrong. Please try again later.');
-      console.error(error); 
+      console.error(error);
     }
     setIsLoading(false);
   };
@@ -24,10 +26,9 @@ const WordCard = ({ wordDetails, showDeleteButton, showSaveButton, isSaved }) =>
     setIsLoading(true);
     try {
       await deleteWordDefinition(wordDetails.id);
-      alert('Word definition unpublished successfully.'); 
+      navigate('/home');
     } catch (error) {
-      alert('Something went wrong. Please try again later.'); 
-      console.error(error); 
+      console.error(error);
     }
     setIsLoading(false);
   };
@@ -40,7 +41,10 @@ const WordCard = ({ wordDetails, showDeleteButton, showSaveButton, isSaved }) =>
         <p><em>{wordDetails.example}</em></p>
         <p><b>by&nbsp;<span className="text-primary">{wordDetails.user}</span>{formattedDate}</b></p>
         {showSaveButton && (
-          <Button variant="btn btn-outline-success" onClick={handleSave} disabled={isLoading}>
+          <Button 
+            variant={isSaved ? "success" : "outline-success"} // Changes the color of the button based on whether the word is saved or not
+            onClick={handleSave} 
+            disabled={isLoading}>
             <BiBookmark /> {isSaved ? "Saved" : "Save"}
           </Button>
         )}
