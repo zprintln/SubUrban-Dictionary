@@ -25,8 +25,8 @@ const DetailsScreen = () => {
       {wordDetails && (
         <WordCard
           wordDetails={wordDetails}
-          showDeleteButton={true} // TODO: should only show if is mod or is person who posted it
-          showSaveButton={true}
+          showDeleteButton
+          showSaveButton
         />
       )}
     </div>
