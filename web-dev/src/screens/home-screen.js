@@ -3,6 +3,8 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import WordCard from "../components/word-card";
+import { fetchAllWords } from "../services/word-service";
+
 
 const HomeScreen = () => {
   const [words, setWords] = useState([]);
@@ -14,12 +16,18 @@ const HomeScreen = () => {
   };
 
   useEffect(() => {
-    async function getNewWords() {
-      // call service function
-      setWords(null); // do actual things
-    }
-    getNewWords();
-  });
+    const fetchWords = async () => {
+      try {
+        const words = await fetchAllWords();
+        setWords(words);
+      } catch (error) {
+        console.error("Error fetching new words:", error);
+      }
+    };
+
+    fetchWords();
+  }, []);
+
 
   return (
     <div className="row">

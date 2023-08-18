@@ -86,3 +86,12 @@ export const deleteFavoriteWord = async (id, user) => {
     console.log(error);
   }
 };
+
+export const fetchAllWords = async () => { 
+  try {
+    const response = await axios.get(`${SERVER_API_URL}/home`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
