@@ -100,7 +100,7 @@ const WordCard = ({ wordDetails, showDeleteButton, showSaveButton }) => {
           </button>
         )}
         &nbsp;
-        {canDelete() && showDeleteButton && (
+        {showDeleteButton && canDelete() && (
           <button
             style={{
               borderRadius: 50,
