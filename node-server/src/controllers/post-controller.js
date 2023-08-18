@@ -14,9 +14,17 @@ const PostController = (app) => {
 
   const getSearchPosts = async (req, res) => {
     const word = req.query.word;
-    const out = await definitionsDao.findAllDefinitionsByWordContains(word); // TODO: make use external API
+    const url = `http://api.urbandictionary.com/v0/define?term=${word}`;
 
-    return res.json(out);
+    try {
+      const response = await axios.get(url);
+      return res.json(response.data);
+    } catch (error) {
+      console.error(error);
+      return res
+        .status(500)
+        .json({ message: "An error occurred while fetching the definitions" });
+    }
   };
 
   const getMyPosts = async (req, res) => {
