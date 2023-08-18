@@ -18,7 +18,16 @@ const PostController = (app) => {
 
     try {
       const response = await axios.get(url);
-      return res.json(response.data);
+
+      const definitionsList = response.data.list.map((entry) => ({
+        word: entry.word,
+        definition: entry.definition,
+        example: entry.example,
+        user: entry.author, // Renamed from "author" to "user"
+        posted_at: new Date(entry.written_on), // Renamed from "written_on" to "posted_at"
+      }));
+
+      return res.json(definitionsList);
     } catch (error) {
       console.error(error);
       return res
