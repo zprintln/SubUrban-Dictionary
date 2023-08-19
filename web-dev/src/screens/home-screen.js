@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 import WordCard from "../components/word-card";
 import { fetchAllWords } from "../services/word-service";
 
-
 const HomeScreen = () => {
   const [words, setWords] = useState([]);
   const { currentUser } = useSelector((state) => state.user);
@@ -48,8 +47,8 @@ const HomeScreen = () => {
           <WordCard
             key={wordDetails.id}
             wordDetails={wordDetails}
-            showDeleteButton={!!currentUser}
-            showSaveButton={!!currentUser}
+            showDeleteButton={!!currentUser} 
+            showSaveButton={true}
           />
         ))}
       </div>

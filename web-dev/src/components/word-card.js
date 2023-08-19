@@ -32,6 +32,10 @@ const WordCard = ({ wordDetails, showDeleteButton, showSaveButton }) => {
 
   const handleSave = async () => {
     setIsLoading(true);
+    if (!currentUser) {
+      navigate("/login");
+      return;
+    }
     try {
       if (!isSaved) {
         await wordService.addFavoriteWord(
@@ -74,7 +78,7 @@ const WordCard = ({ wordDetails, showDeleteButton, showSaveButton }) => {
   };  
 
   return (
-    <div className="card">
+    <div className="card" style={{marginBottom: "10px"}}>
       <div className="card-body">
         <h2 className="text-primary">
           <b>{wordDetails.word}</b>

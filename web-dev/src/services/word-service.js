@@ -93,5 +93,7 @@ export const fetchAllWords = async () => {
     return response.data;
   } catch (error) {
     console.log(error);
+    console.error('Error fetching home posts:', error);
+    throw new Error('Failed to fetch home posts');
   }
 };
