@@ -2,58 +2,64 @@ import { Link } from "react-router-dom";
 
 export const AddWord = () => {
   return (
-    <div
+    <div 
       style={{
         borderRadius: 50,
+        width: "350px",
         display: "flex",
         flexDirection: "column",
-        padding: 30,
-        border: "3px solid #D9D9D9",
+        padding: "15px",
+        border: "1px solid #D9D9D9",
         overflow: "hidden",
-        marginBottom: 40,
+        marginBottom: "5px",
       }}
     >
       <div
         style={{
+          width: "320px",
+          height: "150px",
           display: "flex",
+          paddingBottom: "15px",
           flexDirection: "row",
           justifyContent: "center",
           alignItems: "center",
+
         }}
       >
-        <strong style={{ fontFamily: "Inter", fontSize: 24 }}>
+        <span style={{ marginLeft: "30px", paddingTop: "10px" }}><strong style={{ fontSize: 20 }}>
           SUB-URBAN DICTIONARY IS WRITTEN BY YOU
-        </strong>
+        </strong></span>
         <img
           src={require("../../assets/icon.jpg")}
           alt="Icon"
-          className="img-fluid w-50"
-          style={{ width: 227, height: 227 }}
+          className="img-fluid"
+          style={{ width: 200, height: 200 }}
         />
       </div>
-      <Link
-        style={{
-          borderRadius: 50,
-          backgroundColor: "#134FE6",
-          color: "white",
-          border: "none",
-          padding: 20,
-          fontFamily: "Inter",
-          fontSize: 30,
-          textDecoration: "none",
-          display: "flex",
-          justifyContent: "center",
-        }}
-        to={"/define"}
-        onMouseEnter={(event) =>
-          (event.target.style.backgroundColor = "#1043C1")
-        }
-        onMouseLeave={(event) =>
-          (event.target.style.backgroundColor = "#134FE6")
-        }
-      >
-        + Define a Word
-      </Link>
+      <div style={{ marginLeft: "75px", marginRight: "50px", paddingTop: "10px" }}>
+        <Link
+          className="btn btn-primary"
+          style={{
+            borderRadius: 50,
+            color: "white",
+            border: "none",
+            padding: "10px 20px",
+            fontFamily: "Inter",
+            fontSize: 18,
+            textDecoration: "none",
+            justifyContent: "center",
+          }}
+          to={"/define"}
+          onMouseEnter={(event) =>
+            (event.target.style.backgroundColor = "#1043C1")
+          }
+          onMouseLeave={(event) =>
+            (event.target.style.backgroundColor = "#0d6efd")
+          }
+        >
+          + Define a Word
+        </Link>
+      </div>
     </div>
   );
 };

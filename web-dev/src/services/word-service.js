@@ -86,3 +86,14 @@ export const deleteFavoriteWord = async (id, user) => {
     console.log(error);
   }
 };
+
+export const fetchAllWords = async () => { 
+  try {
+    const response = await axios.get(`${SERVER_API_URL}/home`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    console.error('Error fetching home posts:', error);
+    throw new Error('Failed to fetch home posts');
+  }
+};
