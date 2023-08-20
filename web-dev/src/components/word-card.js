@@ -32,10 +32,6 @@ const WordCard = ({ wordDetails, showDeleteButton, showSaveButton }) => {
 
   const handleSave = async () => {
     setIsLoading(true);
-    if (!currentUser) {
-      navigate("/login");
-      return;
-    }
     try {
       if (!isSaved) {
         await wordService.addFavoriteWord(
@@ -106,11 +102,11 @@ const WordCard = ({ wordDetails, showDeleteButton, showSaveButton }) => {
           </button>
         )}
 
-        &nbsp;
         {showDeleteButton && canDelete() && (
           <button
             style={{
               borderRadius: 50,
+              marginLeft: 10,
             }}
             className="ml-2 btn btn-outline-danger"
             onClick={handleDelete}

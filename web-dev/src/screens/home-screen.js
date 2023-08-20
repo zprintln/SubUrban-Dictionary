@@ -47,8 +47,8 @@ const HomeScreen = () => {
           <WordCard
             key={wordDetails.id}
             wordDetails={wordDetails}
-            showDeleteButton={!!currentUser} 
-            showSaveButton={true}
+            showDeleteButton={false} 
+            showSaveButton={!!currentUser}
           />
         ))}
       </div>

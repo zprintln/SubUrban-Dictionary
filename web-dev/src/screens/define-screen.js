@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux"; // Import the useDispatch hook
 import { createWordDefinitionThunk } from "../services/word-reducer"; // Import the new word thunk
+import { useNavigate } from "react-router-dom";
+
 
 function DefineScreen() {
   const { currentUser } = useSelector((state) => {
     return state.user;
   });
+
+  const navigate = useNavigate();
 
   const dispatch = useDispatch(); // Initialize the useDispatch hook
   const [word, setWord] = useState("");
@@ -25,6 +29,8 @@ function DefineScreen() {
         .then(() => {
           // Handle success, e.g., navigate or show a success message
           console.log("Word definition created successfully");
+          navigate("/home");
+          //navigate(`/word-details/${word}`);
         })
         .catch(() => {
           // Handle error, e.g., show an error message
@@ -35,6 +41,7 @@ function DefineScreen() {
       setWord("");
       setDefinition("");
       setExample("");
+
     } catch (error) {
       alert(error); // Handle unexpected errors
     }
