@@ -40,7 +40,7 @@ const NavigationSidebar = () => {
             {link.icon} {link.text}
           </Link>
         ))}
-      {active === "profile" && (
+      {active === "profile" && currentUser && (
         <button
           style={{
             marginTop: 50,
@@ -49,7 +49,6 @@ const NavigationSidebar = () => {
             color: "white",
             border: "none",
             padding: 5,
-            fontFamily: "Inter",
             fontSize: 20,
             textDecoration: "none",
             display: "flex",

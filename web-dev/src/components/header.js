@@ -12,7 +12,7 @@ const Header = () => {
         alignItems: "center",
       }}
     >
-      <h1 style={{ color: 'white', textShadow: '0 4px 4px black' }}>Sub-Urban Dictionary</h1>
+      <h1 style={{ color: 'white', textShadow: '0 2px 2px black' }}>Sub-Urban Dictionary</h1>
     </div>
   );
 };

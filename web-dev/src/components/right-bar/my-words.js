@@ -1,14 +1,15 @@
 import { Link } from "react-router-dom";
 
-export const MyWords = ({ words }) => {
+export const MyWords = ({ words, username }) => {
   return (
     <div>
-      <br/>
-      <h4 className="text-primary">
-        My Words 
-      </h4>
+      <strong style={{ textTransform: "capitalize", fontSize: 22, color: "#134FE6" }}>
+        {username ? username + "'s " : "My "}
+          Words
+      </strong>
       <div
         style={{
+          marginTop: 10,
           borderRadius: 10,
           display: "flex",
           flexDirection: "column",
@@ -21,11 +22,13 @@ export const MyWords = ({ words }) => {
         }}
       >
         {words.map((word) => (
-          <div>
-            <Link style={{ textDecoration: "none", fontSize: 20}} key={word.word} to={`details/${word._id}`}>
-                <b>{word.word}</b>
-            </Link>
-          </div>
+          <Link style={{ textDecoration: "none", fontSize: 20}} key={word.word} to={`details/${word._id}`}>
+            <strong
+              style={{ fontSize: 30, color: "#134FE6" }}
+            >
+              {word.word}
+            </strong>
+          </Link>
         ))}
       </div>
     </div>

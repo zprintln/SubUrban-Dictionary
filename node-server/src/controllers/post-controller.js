@@ -1,6 +1,7 @@
 import * as definitionsDao from "../models/definitions-dao.js";
 import * as usersDao from "../models/users-dao.js";
 import axios from "axios";
+import { deleteFavoriteByPost } from "../models/favorites-dao.js";
 
 const PostController = (app) => {
   const getPost = async (req, res) => {
@@ -57,6 +58,7 @@ const PostController = (app) => {
       return res.sendStatus(401); // unauthorized
     }
 
+    await deleteFavoriteByPost(post._id);
     await definitionsDao.deleteDefinition(post._id);
     return res.sendStatus(200);
   };
@@ -75,3 +77,4 @@ const PostController = (app) => {
 };
 
 export default PostController;
+

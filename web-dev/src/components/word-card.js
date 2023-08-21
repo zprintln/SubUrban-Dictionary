@@ -18,7 +18,6 @@ const WordCard = ({
   const month = formattedDate.toLocaleString("default", { month: "long" });
   const year = formattedDate.getFullYear();
   const day = formattedDate.getDate();
-  const navigate = useNavigate();
 
   const { currentUser } = useSelector((state) => {
     return state.user;
@@ -107,7 +106,7 @@ const WordCard = ({
         </p>
         <p>
           <b>
-            By&nbsp;<Link className="text-primary" style={{textDecoration: "none"}} to={`profile/${wordDetails.user._id}`}>{wordDetails.user}</Link>
+            By&nbsp;<Link className="text-primary" style={{textDecoration: "none"}} to={`/profile/${wordDetails.user}`}>{wordDetails.user}</Link>
             &nbsp;
             {month} {day}, {year}
           </b>

@@ -8,17 +8,19 @@ import * as wordService from "../../services/word-service";
 const RightComponent = () => {
   const { pathname } = useLocation();
   // eslint-disable-next-line
-  const [ignore, active] = pathname.split("/");
+  const [ignore, active, username] = pathname.split("/");
   const { currentUser } = useSelector((state) => {
     return state.user;
   });
   const [words, setWords] = useState([]);
   const navigate = useNavigate();
+  
 
   useEffect(() => {
-    if (active === "profile" && currentUser !== null) {
+    if (active === "profile" && (currentUser !== null || username )) {
       async function getWords() {
-        setWords(await wordService.findMyWords(currentUser.username));
+        console.log(username);
+        setWords(await wordService.findMyWords(username ? username : currentUser.username));
       }
 
       getWords();
@@ -36,7 +38,7 @@ const RightComponent = () => {
   return (
     <div>
       {shouldRenderAddWord() && <AddWord />}
-      {shouldRenderMyWords() && <MyWords words={words} />}
+      {shouldRenderMyWords() && <MyWords words={words} username={username}/>}
     </div>
   );
 };
