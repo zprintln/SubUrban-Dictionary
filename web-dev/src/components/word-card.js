@@ -10,6 +10,7 @@ const WordCard = ({ wordDetails, showDeleteButton, showSaveButton }) => {
   const formattedDate = new Date(wordDetails.posted_at);
   const month = formattedDate.toLocaleString('default', { month: 'long' });
   const year = formattedDate.getFullYear();
+  const day = formattedDate.getDate();
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => {
     return state.user;
@@ -86,7 +87,7 @@ const WordCard = ({ wordDetails, showDeleteButton, showSaveButton }) => {
         <p>
           <b>
             By&nbsp;<span className="text-primary">{wordDetails.user}</span>&nbsp;
-            {month}, {year}
+            {month} {day}, {year}
           </b>
         </p>
         {showSaveButton && (

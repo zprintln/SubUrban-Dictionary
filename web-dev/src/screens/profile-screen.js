@@ -20,12 +20,13 @@ const ProfileScreen = () => {
       }
     }
     fetchFavoritesFromService();
-  }, [currentUser]);
+  }, [currentUser, favorites]);
 
   return (
     <div>
-      <h1 style={{ color: 'blue' }}>Hello {currentUser?.username}</h1>
-      <h2 style={{ color: 'blue' }}>My Favorites</h2>
+      <h1 className="--bs-body-color">Hello,&nbsp;<span className="text-primary">{currentUser?.username}</span></h1>
+      <br />
+      <h4 className="text-primary">My Favorites</h4>
       {/* Map through the favorite words and render a WordCard component for each one */}
       {favorites.map((wordDetails) => (
         <WordCard
