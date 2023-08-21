@@ -5,10 +5,13 @@ const FavoritesController = (app) => {
   const getFavorites = async (req, res) => {
     const user = req.query.user;
     const favorites = await favoritesDao.findFavoritesByUser(user);
-    const out = favorites.map(async (f) => {
-      return await definitionsDao.findDefinitionById(f.definition);
+    return Promise.all(
+      favorites.map((f) => {
+        return definitionsDao.findDefinitionById(f.definition);
+      })
+    ).then((out) => {
+      return res.json(out);
     });
-    return res.json(out);
   };
 
   const getIsFavorite = async (req, res) => {
