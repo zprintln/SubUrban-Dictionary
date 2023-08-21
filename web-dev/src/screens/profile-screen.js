@@ -29,6 +29,10 @@ const ProfileScreen = () => {
     setFavorites(favorites.filter((w) => w._id !== id));
   };
 
+  const handleDelete = (id) => {
+    setFavorites(favorites.filter((w) => w._id !== id));
+  };
+
   return (
     <div>
       {currentUser && <h1 className="--bs-body-color">Hello,&nbsp;<span className="text-primary">{currentUser?.username}</span></h1> }
@@ -41,15 +45,16 @@ const ProfileScreen = () => {
           <WordCard
             key={wordDetails._id}
             wordDetails={wordDetails}
-            showDeleteButton={false} 
-            showSaveButton={true} 
+            showDeleteButton
+            showSaveButton
             onUnSave={handleUnSave}
+            onDelete={handleDelete}
           />
         ))
       ) : (
         <div>
           <br/>
-          <h1 className="badge bg-info" style={{fontSize: "16px"}}>No saved defintions </h1>
+          <h1 className="badge bg-info" style={{fontSize: "16px"}}>No saved definitions </h1>
         </div>
       )}
     </div>

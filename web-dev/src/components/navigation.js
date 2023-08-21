@@ -17,6 +17,7 @@ const Navigation = () => {
       <Route path="/" element={<Navigate to="/home" />} /> 
       <Route path="/home" element={<HomeScreen />} />
       <Route path="/search" element={<SearchScreen />} />
+      <Route path="/search/:q" element={<SearchScreen />} />
       {
         <Route
           path="/define"

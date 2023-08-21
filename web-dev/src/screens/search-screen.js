@@ -20,12 +20,12 @@ const SearchScreen = () => {
       }
     };
 
-    fetchData();
+    if (q) fetchData();
   }, [q]);
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
-      navigate(`/search?q=${event.target.value}`);
+      navigate(`/search/${event.target.value}`);
     }
   };
 
