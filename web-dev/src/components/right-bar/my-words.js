@@ -10,7 +10,7 @@ export const MyWords = ({ words, username }) => {
       <div
         style={{
           marginTop: 10,
-          borderRadius: 50,
+          borderRadius: 10,
           display: "flex",
           flexDirection: "column",
           paddingLeft: 50,
@@ -22,7 +22,7 @@ export const MyWords = ({ words, username }) => {
         }}
       >
         {words.map((word) => (
-          <Link key={word.word} to={`details/${word._id}`}>
+          <Link style={{ textDecoration: "none", fontSize: 20}} key={word.word} to={`details/${word._id}`}>
             <strong
               style={{ fontSize: 30, color: "#134FE6" }}
             >

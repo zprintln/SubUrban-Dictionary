@@ -24,6 +24,10 @@ const ProfileScreen = () => {
     }
     fetchFavoritesFromService();
   }, [currentUser, username]);
+  
+  const handleUnSave = (id) => {
+    setFavorites(favorites.filter((w) => w._id !== id));
+  };
 
   return (
     <div>
@@ -39,6 +43,7 @@ const ProfileScreen = () => {
             wordDetails={wordDetails}
             showDeleteButton={false} 
             showSaveButton={true} 
+            onUnSave={handleUnSave}
           />
         ))
       ) : (
