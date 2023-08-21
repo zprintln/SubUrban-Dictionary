@@ -49,7 +49,6 @@ const NavigationSidebar = () => {
             color: "white",
             border: "none",
             padding: 5,
-            fontFamily: "Inter",
             fontSize: 20,
             textDecoration: "none",
             display: "flex",
