@@ -5,6 +5,7 @@ import LoginScreen from "../screens/login-screen";
 import ProfileScreen from "../screens/profile-screen";
 import DefineScreen from "../screens/define-screen";
 import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 import DetailsScreen from "../screens/details-screen";
 
 const Navigation = () => {
@@ -13,6 +14,7 @@ const Navigation = () => {
   });
   return (
     <Routes>
+      <Route path="/" element={<Navigate to="/home" />} /> 
       <Route path="/home" element={<HomeScreen />} />
       <Route path="/search" element={<SearchScreen />} />
       {
