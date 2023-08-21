@@ -44,8 +44,7 @@ export const AddWord = () => {
             color: "white",
             border: "none",
             padding: "10px 20px",
-            fontFamily: "Inter",
-            fontSize: 18,
+            fontSize: 16,
             textDecoration: "none",
             justifyContent: "center",
           }}
