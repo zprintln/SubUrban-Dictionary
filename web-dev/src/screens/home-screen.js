@@ -45,10 +45,11 @@ const HomeScreen = () => {
       <div className="row mt-3">
         {words.map((wordDetails) => (
           <WordCard
-            key={wordDetails.id}
+            key={wordDetails._id}
             wordDetails={wordDetails}
             showDeleteButton={false} 
             showSaveButton={!!currentUser}
+            showLink={false}
           />
         ))}
       </div>

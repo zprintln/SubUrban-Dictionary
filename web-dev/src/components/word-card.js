@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { BiBookmark } from "react-icons/bi";
 import * as wordService from "../services/word-service";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const WordCard = ({ wordDetails, showDeleteButton, showSaveButton }) => {
+const WordCard = ({ wordDetails, showDeleteButton, showSaveButton, showLink }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const formattedDate = new Date(wordDetails.posted_at);
-  const month = formattedDate.toLocaleString('default', { month: 'long' });
+  const month = formattedDate.toLocaleString("default", { month: "long" });
   const year = formattedDate.getFullYear();
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => {
@@ -17,18 +17,17 @@ const WordCard = ({ wordDetails, showDeleteButton, showSaveButton }) => {
 
   useEffect(() => {
     async function getSaved() {
-        await wordService
-          .fetchIsSaved(wordDetails._id, currentUser.username)
-          .then((data) => {
-            setIsSaved(data.saved);
-          });
-      }
+      await wordService
+        .fetchIsSaved(wordDetails._id, currentUser.username)
+        .then((data) => {
+          setIsSaved(data.saved);
+        });
+    }
 
-    if (showSaveButton) {
+    if (showSaveButton && currentUser) {
       getSaved();
     }
   }, [wordDetails._id, showSaveButton, currentUser]);
-
 
   const handleSave = async () => {
     setIsLoading(true);
@@ -70,14 +69,22 @@ const WordCard = ({ wordDetails, showDeleteButton, showSaveButton }) => {
   };
 
   const canDelete = () => {
-    return currentUser && (currentUser.moderator || wordDetails.user === currentUser.username);
-  };  
+    return (
+      currentUser &&
+      (currentUser.moderator || wordDetails.user === currentUser.username)
+    );
+  };
 
   return (
-    <div className="card" style={{marginBottom: "10px"}}>
+    <div className="card" style={{ marginBottom: "10px" }}>
       <div className="card-body">
         <h2 className="text-primary">
-          <b>{wordDetails.word}</b>
+          {showLink && <Link
+            to={{ pathname: `/details/${wordDetails._id}`, state: wordDetails }}
+          >
+            <b>{wordDetails.word}</b>
+          </Link>}
+          {!showLink && <b>{wordDetails.word}</b>}
         </h2>
         <p>{wordDetails.definition}</p>
         <p>
@@ -85,13 +92,14 @@ const WordCard = ({ wordDetails, showDeleteButton, showSaveButton }) => {
         </p>
         <p>
           <b>
-            By&nbsp;<span className="text-primary">{wordDetails.user}</span>&nbsp;
+            By&nbsp;<span className="text-primary">{wordDetails.user}</span>
+            &nbsp;
             {month}, {year}
           </b>
         </p>
-        {showSaveButton && (
+        {showSaveButton && currentUser && (
           <button
-            className={`btn ${isSaved ? 'btn-success' : 'btn-outline-success'}`}
+            className={`btn ${isSaved ? "btn-success" : "btn-outline-success"}`}
             style={{
               borderRadius: 50,
             }}

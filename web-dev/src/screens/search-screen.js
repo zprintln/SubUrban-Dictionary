@@ -28,7 +28,7 @@ const SearchScreen = () => {
 
   return (
     <div className="row">
-      <div className="col-11 position-relative">
+      <div className="col-11 position-relative" style={{ marginBottom: 10 }}>
         <input
           placeholder="Search a definition"
           className="form-control rounded-pill ps-5"
@@ -46,8 +46,9 @@ const SearchScreen = () => {
             <WordCard
               key={index}
               wordDetails={result}
-              showDeleteButton
-              showSaveButton
+              showDeleteButton={false}
+              showSaveButton={false}
+              showLink
             />
           ))}
       </div>

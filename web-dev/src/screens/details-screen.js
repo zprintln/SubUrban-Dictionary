@@ -16,18 +16,14 @@ const DetailsScreen = () => {
         console.error("Error fetching word details:", error);
       }
     };
-
-    fetchData();
+    
+    fetchData()
   }, [id]);
 
   return (
     <div className="container mt-5">
       {wordDetails && (
-        <WordCard
-          wordDetails={wordDetails}
-          showDeleteButton
-          showSaveButton
-        />
+        <WordCard wordDetails={wordDetails} showDeleteButton showSaveButton showLink={false} />
       )}
     </div>
   );
