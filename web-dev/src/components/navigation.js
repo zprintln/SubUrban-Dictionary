@@ -25,6 +25,7 @@ const Navigation = () => {
       }
       <Route path="/login" element={<LoginScreen />} />
       <Route path="/profile" element={<ProfileScreen />} />
+      <Route path="/profile/:username" element={<ProfileScreen />} />
       <Route path="/details/:id" element={<DetailsScreen />} />
     </Routes>
   );

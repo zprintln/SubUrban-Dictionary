@@ -40,7 +40,7 @@ const NavigationSidebar = () => {
             {link.icon} {link.text}
           </Link>
         ))}
-      {active === "profile" && (
+      {active === "profile" && currentUser && (
         <button
           style={{
             marginTop: 50,

@@ -2,15 +2,18 @@ import React, { useEffect, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import * as searchService from "../services/search-service";
 import WordCard from "../components/word-card";
+import { useParams, useNavigate } from "react-router-dom";
 
 const SearchScreen = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+  const { q } = useParams();
   const [results, setResults] = useState([]);
+  const navigate = useNavigate();
 
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const details = await searchService.handleSearch(searchTerm);
+        const details = await searchService.handleSearch(q);
         setResults(details);
       } catch (error) {
         console.error("Error fetching word details:", error);
@@ -18,11 +21,11 @@ const SearchScreen = () => {
     };
 
     fetchData();
-  }, [searchTerm]);
+  }, [q]);
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
-      setSearchTerm(event.target.value);
+      navigate(`/search?q=${event.target.value}`);
     }
   };
 

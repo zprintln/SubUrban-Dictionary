@@ -1,20 +1,22 @@
 import { Link } from "react-router-dom";
 
-export const MyWords = ({ words }) => {
+export const MyWords = ({ words, username }) => {
   return (
     <div>
-      <strong style={{ fontFamily: "Inter", fontSize: 30, color: "#134FE6" }}>
-        My Words
+      <strong style={{ textTransform: "capitalize", fontSize: 22, color: "#134FE6" }}>
+        {username ? username + "'s " : "My "}
+          Words
       </strong>
       <div
         style={{
+          marginTop: 10,
           borderRadius: 50,
           display: "flex",
           flexDirection: "column",
           paddingLeft: 50,
           paddingTop: 20,
           paddingBottom: 20,
-          border: "3px solid #D9D9D9",
+          border: "1px solid #D9D9D9",
           overflow: "hidden",
           gap: 10,
         }}
@@ -22,7 +24,7 @@ export const MyWords = ({ words }) => {
         {words.map((word) => (
           <Link key={word.word} to={`details/${word._id}`}>
             <strong
-              style={{ fontFamily: "Inter", fontSize: 30, color: "#134FE6" }}
+              style={{ fontSize: 30, color: "#134FE6" }}
             >
               {word.word}
             </strong>

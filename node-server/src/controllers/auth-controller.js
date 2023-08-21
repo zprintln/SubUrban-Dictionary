@@ -41,6 +41,17 @@ const AuthController = (app) => {
     res.sendStatus(200);
   };
 
+  const checkUserExistence = async (req, res) => {
+    const username = req.params.username; 
+    const user = await usersDao.findUserByUsername(username);
+    if (user) {
+      res.json({ exists: true });
+    } else {
+      res.json({ exists: false });
+    }
+  };
+
+  app.get("/api/users/profile/:username", checkUserExistence);
   app.post("/api/users/register", register);
   app.post("/api/users/login", login);
   app.post("/api/users/profile", profile);

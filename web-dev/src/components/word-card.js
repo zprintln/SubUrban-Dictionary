@@ -104,7 +104,7 @@ const WordCard = ({
         </p>
         <p>
           <b>
-            By&nbsp;<Link className="text-primary" style={{textDecoration: "none"}} to={`profile/${wordDetails.user._id}`}>{wordDetails.user}</Link>
+            By&nbsp;<Link className="text-primary" style={{textDecoration: "none"}} to={`/profile/${wordDetails.user}`}>{wordDetails.user}</Link>
             &nbsp;
             {month}, {year}
           </b>
