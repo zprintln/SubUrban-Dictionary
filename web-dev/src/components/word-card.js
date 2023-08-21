@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { BiBookmark } from "react-icons/bi";
 import * as wordService from "../services/word-service";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const WordCard = ({ wordDetails, showDeleteButton, showSaveButton, showLink }) => {
+const WordCard = ({
+  wordDetails,
+  showDeleteButton,
+  showSaveButton,
+  showLink,
+  onUnSave = (id) => {},
+  onDelete = (id) => {},
+}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const formattedDate = new Date(wordDetails.posted_at);
   const month = formattedDate.toLocaleString("default", { month: "long" });
   const year = formattedDate.getFullYear();
-  const navigate = useNavigate();
   const { currentUser } = useSelector((state) => {
     return state.user;
   });
@@ -42,6 +48,7 @@ const WordCard = ({ wordDetails, showDeleteButton, showSaveButton, showLink }) =
           wordDetails._id,
           currentUser.username
         );
+        onUnSave(wordDetails._id);
       }
       await wordService
         .fetchIsSaved(wordDetails._id, currentUser.username)
@@ -61,7 +68,7 @@ const WordCard = ({ wordDetails, showDeleteButton, showSaveButton, showLink }) =
         wordDetails._id,
         currentUser.username
       );
-      navigate("/home");
+      onDelete(wordDetails._id);
     } catch (error) {
       console.error(error);
     }
@@ -79,11 +86,16 @@ const WordCard = ({ wordDetails, showDeleteButton, showSaveButton, showLink }) =
     <div className="card" style={{ marginBottom: "10px" }}>
       <div className="card-body">
         <h2 className="text-primary">
-          {showLink && <Link
-            to={{ pathname: `/details/${wordDetails._id}`, state: wordDetails }}
-          >
-            <b>{wordDetails.word}</b>
-          </Link>}
+          {showLink && (
+            <Link
+              to={{
+                pathname: `/details/${wordDetails._id}`,
+                state: wordDetails,
+              }}
+            >
+              <b>{wordDetails.word}</b>
+            </Link>
+          )}
           {!showLink && <b>{wordDetails.word}</b>}
         </h2>
         <p>{wordDetails.definition}</p>
