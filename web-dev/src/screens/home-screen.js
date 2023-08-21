@@ -27,6 +27,9 @@ const HomeScreen = () => {
     fetchWords();
   }, []);
 
+  const handleDelete = (id) => {
+    setWords(words.filter((w) => w._id !== id));
+  };
 
   return (
     <div className="row">
@@ -45,10 +48,12 @@ const HomeScreen = () => {
       <div className="row mt-3">
         {words.map((wordDetails) => (
           <WordCard
-            key={wordDetails.id}
+            key={wordDetails._id}
             wordDetails={wordDetails}
-            showDeleteButton={false} 
+            showDeleteButton={!!currentUser}
             showSaveButton={!!currentUser}
+            showLink={false}
+            onDelete={handleDelete}
           />
         ))}
       </div>

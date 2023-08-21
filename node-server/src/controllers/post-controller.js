@@ -1,5 +1,6 @@
 import * as definitionsDao from "../models/definitions-dao.js";
 import * as usersDao from "../models/users-dao.js";
+import axios from "axios";
 
 const PostController = (app) => {
   const getPost = async (req, res) => {
@@ -14,12 +15,14 @@ const PostController = (app) => {
 
   const getSearchPosts = async (req, res) => {
     const word = req.query.word;
+    if (word === "") return res.json([]);
+
     const url = `http://api.urbandictionary.com/v0/define?term=${word}`;
 
     try {
       const response = await axios.get(url);
 
-      const definitionsList = response.data.list.map((entry) => ({
+      let definitionsList = response.data.list.map((entry) => ({
         word: entry.word,
         definition: entry.definition,
         example: entry.example,
@@ -27,7 +30,11 @@ const PostController = (app) => {
         posted_at: new Date(entry.written_on), // Renamed from "written_on" to "posted_at"
       }));
 
-      return res.json(definitionsList);
+      return Promise.all(
+        definitionsList.map((x) => definitionsDao.createDefinition(x))
+      ).then(values => {
+        return res.json(values);
+      });
     } catch (error) {
       console.error(error);
       return res
