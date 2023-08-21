@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AddWord } from "./add-word";
 import { MyWords } from "./my-words";
 import { useSelector } from "react-redux";

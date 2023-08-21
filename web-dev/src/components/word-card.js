@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BiBookmark } from "react-icons/bi";
 import * as wordService from "../services/word-service";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const WordCard = ({
@@ -18,7 +18,6 @@ const WordCard = ({
   const month = formattedDate.toLocaleString("default", { month: "long" });
   const year = formattedDate.getFullYear();
   const day = formattedDate.getDate();
-  const navigate = useNavigate();
 
   const { currentUser } = useSelector((state) => {
     return state.user;
