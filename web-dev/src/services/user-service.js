@@ -32,3 +32,13 @@ export const profile = async () => {
   const response = await axios.post(`${USERS_URL}/profile`);
   return response;
 };
+
+
+export const updateUserInfo = async (currentUsername, updatedInfo) => {
+  try {
+    const response = await axios.put(`${USERS_URL}/${currentUsername}`, updatedInfo);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || "Failed to update user information.");
+  }
+};
