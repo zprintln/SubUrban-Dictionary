@@ -3,8 +3,8 @@ import * as definitionsDao from "../models/definitions-dao.js";
 
 const FavoritesController = (app) => {
   const getFavorites = async (req, res) => {
-    const user = req.query.user;
-    const favorites = await favoritesDao.findFavoritesByUser(user);
+    const userId = req.query.userId;
+    const favorites = await favoritesDao.findFavoritesByUser(userId);
     return Promise.all(
       favorites.map((f) => {
         return definitionsDao.findDefinitionById(f.definition);

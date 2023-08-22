@@ -43,10 +43,10 @@ export const fetchWordDetails = async (wordId) => {
   }
 };
 
-export const fetchFavorites = async (user) => {
+export const fetchFavorites = async (userId) => {
   try {
     const response = await axios.get(
-      `${SERVER_API_URL}/favorites?user=${user}`
+      `${SERVER_API_URL}/favorites?userId=${userId}`
     );
     return response.data;
   } catch (error) {
@@ -87,13 +87,13 @@ export const deleteFavoriteWord = async (id, user) => {
   }
 };
 
-export const fetchAllWords = async () => {
+export const fetchAllWords = async () => { 
   try {
     const response = await axios.get(`${SERVER_API_URL}/home`);
     return response.data;
   } catch (error) {
     console.log(error);
-    console.error("Error fetching home posts:", error);
-    throw new Error("Failed to fetch home posts");
+    console.error('Error fetching home posts:', error);
+    throw new Error('Failed to fetch home posts');
   }
 };

@@ -14,17 +14,15 @@ const ProfileScreen = () => {
   useEffect(() => {
     async function fetchFavoritesFromService() {
       try {
-        const favoriteWords = await wordService.fetchFavorites(
-          username ? username : currentUser.username
-        );
+        const favoriteWords = await wordService.fetchFavorites(currentUser._id);
         setFavorites(favoriteWords);
       } catch (error) {
         console.log(error);
       }
     }
     fetchFavoritesFromService();
-  }, [currentUser, username]);
-
+  }, [currentUser._id]);
+  
   const handleUnSave = (id) => {
     setFavorites(favorites.filter((w) => w._id !== id));
   };

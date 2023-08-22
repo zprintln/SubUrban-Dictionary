@@ -2,8 +2,8 @@ import favoritesModel from "./favorites-model.js";
 
 export const findAllFavorites = () => favoritesModel.find();
 
-export const findFavoritesByUser = (user) =>
-  favoritesModel.find({ user: user });
+export const findFavoritesByUser = (userId) =>
+  favoritesModel.find({ user: userId });
 
 export const findFavoritesByPost = (post) =>
   favoritesModel.find({ definition: post });

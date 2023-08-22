@@ -25,38 +25,28 @@ const WordCard = ({
 
   useEffect(() => {
     async function getSaved() {
-      await wordService
-        .fetchIsSaved(wordDetails._id, currentUser.username)
-        .then((data) => {
-          setIsSaved(data.saved);
-        });
+      await wordService.fetchIsSaved(wordDetails._id, currentUser._id).then((data) => {
+        setIsSaved(data.saved);
+      });
     }
-
+  
     if (showSaveButton && currentUser) {
       getSaved();
     }
   }, [wordDetails._id, showSaveButton, currentUser]);
-
+  
   const handleSave = async () => {
     setIsLoading(true);
     try {
       if (!isSaved) {
-        await wordService.addFavoriteWord(
-          wordDetails._id,
-          currentUser.username
-        );
+        await wordService.addFavoriteWord(wordDetails._id, currentUser._id);
       } else {
-        await wordService.deleteFavoriteWord(
-          wordDetails._id,
-          currentUser.username
-        );
+        await wordService.deleteFavoriteWord(wordDetails._id, currentUser._id);
         onUnSave(wordDetails._id);
       }
-      await wordService
-        .fetchIsSaved(wordDetails._id, currentUser.username)
-        .then((data) => {
-          setIsSaved(data.saved);
-        });
+      await wordService.fetchIsSaved(wordDetails._id, currentUser._id).then((data) => {
+        setIsSaved(data.saved);
+      });
     } catch (error) {
       console.error(error);
     }
