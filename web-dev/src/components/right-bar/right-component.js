@@ -19,13 +19,12 @@ const RightComponent = () => {
   useEffect(() => {
     if (active === "profile" && (currentUser !== null || username )) {
       async function getWords() {
-        console.log(username);
         setWords(await wordService.findMyWords(username ? username : currentUser.username));
       }
 
       getWords();
     }
-  }, [active, currentUser, navigate]);
+  }, [active, currentUser, navigate, username]);
 
   const shouldRenderAddWord = () => {
     return active !== "define" && active !== "login";

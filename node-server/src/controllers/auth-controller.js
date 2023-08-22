@@ -42,7 +42,7 @@ const AuthController = (app) => {
   };
 
   const checkUserExistence = async (req, res) => {
-    const username = req.params.username; 
+    const username = req.params.username;
     const user = await usersDao.findUserByUsername(username);
     if (user) {
       res.json({ exists: true });
@@ -51,10 +51,23 @@ const AuthController = (app) => {
     }
   };
 
+  const updateUserInfo = async (req, res) => {
+    const user = await usersDao.findUserByUsername(req.params.username);
+    const updatedUserInfo = req.body;
+    if (await usersDao.findUserByUsername(updateUserInfo.username)) {
+      return res.json(500); // username already exists
+    }
+
+    await usersDao.updateUser(user._id, updatedUserInfo);
+    const out = await usersDao.findUserByUsername(updatedUserInfo.username);
+    return res.json(out);
+  };
+
   app.get("/api/users/profile/:username", checkUserExistence);
   app.post("/api/users/register", register);
   app.post("/api/users/login", login);
   app.post("/api/users/profile", profile);
   app.post("/api/users/logout", logout);
+  app.put("/api/users/:username", updateUserInfo);
 };
 export default AuthController;

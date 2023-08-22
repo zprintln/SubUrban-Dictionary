@@ -25,6 +25,13 @@ export const registerThunk = createAsyncThunk(
   }
 );
 
+export const updateUserThunk = createAsyncThunk(
+  "users/update",
+  async ({ username, credentials }) => {
+    return await authService.updateUserInfo(username, credentials);
+  }
+);
+
 const userSlice = createSlice({
   name: "user",
   initialState: { currentUser: null },
@@ -46,6 +53,9 @@ const userSlice = createSlice({
       state.currentUser = null;
     },
     [registerThunk.fulfilled]: (state, { payload }) => {
+      state.currentUser = payload;
+    },
+    [updateUserThunk.fulfilled]: (state, { payload }) => {
       state.currentUser = payload;
     },
   },
