@@ -22,9 +22,7 @@ const NavigationSidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [updatedUsername, setUpdatedUsername] = useState(
-    currentUser?.username || ""
-  );
+  const [updatedUsername, setUpdatedUsername] = useState("");
   const [updatedPassword, setUpdatedPassword] = useState("");
   const [updatedIsModerator, setUpdatedIsModerator] = useState(
     currentUser?.isModerator || false
