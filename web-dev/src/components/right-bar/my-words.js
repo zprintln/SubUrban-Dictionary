@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 export const MyWords = ({ words, username }) => {
   return (
@@ -35,4 +34,3 @@ export const MyWords = ({ words, username }) => {
     </div>
   );
 };
-
