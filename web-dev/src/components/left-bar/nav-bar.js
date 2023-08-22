@@ -8,7 +8,7 @@ import { logoutThunk, updateUserThunk } from "../../services/user-reducer";
 const NavigationSidebar = () => {
   const { pathname } = useLocation();
   // eslint-disable-next-line
-  const [ignore, active] = pathname.split("/");
+  const [ignore, active, username] = pathname.split("/");
   const { currentUser } = useSelector((state) => {
     return state.user;
   });
@@ -85,10 +85,10 @@ const NavigationSidebar = () => {
             {link.icon} {link.text}
           </Link>
         ))}
-      {active === "profile" && currentUser && (
+      {active === "profile" && !username && currentUser && (
         <div>
           <div>
-            <label className="form-label mt-2">Username</label>
+            <label className="form-label mt-4">Username</label>
             <input
               type="text"
               className="form-control"
