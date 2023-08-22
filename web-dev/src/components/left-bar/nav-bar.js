@@ -4,7 +4,6 @@ import { FiLogIn } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { logoutThunk, updateUserThunk } from "../../services/user-reducer";
-import * as userService from "../../services/user-service";
 
 const NavigationSidebar = () => {
   const { pathname } = useLocation();
@@ -41,6 +40,10 @@ const NavigationSidebar = () => {
   };
 
   const handleUpdateInfo = async () => {
+    if (updatedUsername !== currentUser.username && !updatedPassword) {
+      alert("Please enter your password to update your username.");
+      return;
+    }
     try {
       dispatch(
         updateUserThunk({
@@ -52,6 +55,7 @@ const NavigationSidebar = () => {
           },
         })
       ).then(() => setDisabledButton(true));
+      navigate("/profile"); 
     } catch (error) {
       console.log(error);
     }
