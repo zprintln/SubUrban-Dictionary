@@ -43,10 +43,10 @@ export const fetchWordDetails = async (wordId) => {
   }
 };
 
-export const fetchFavorites = async (userId) => {
+export const fetchFavorites = async (user) => {
   try {
     const response = await axios.get(
-      `${SERVER_API_URL}/favorites?userId=${userId}`
+      `${SERVER_API_URL}/favorites?user=${user}`
     );
     return response.data;
   } catch (error) {

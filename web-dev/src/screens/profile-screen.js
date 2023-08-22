@@ -12,19 +12,18 @@ const ProfileScreen = () => {
   useEffect(() => {
     async function fetchFavoritesFromService() {
       // Check if the current user exists and has an _id property
-      if (currentUser && currentUser._id) {
-        try {
-          const favoriteWords = await wordService.fetchFavorites(currentUser._id);
-          setFavorites(favoriteWords);
-        } catch (error) {
-          console.error("Error fetching favorites:", error);
-          alert("Favorites not found.");
-        }
+      try {
+        const favoriteWords = await wordService.fetchFavorites(
+          username ? username : currentUser.username
+        );
+        setFavorites(favoriteWords);
+      } catch (error) {
+        console.log(error);
       }
     }
     fetchFavoritesFromService();
-  }, [currentUser]);
-  
+  }, [currentUser, username]);
+
   const handleUnSave = (id) => {
     setFavorites(favorites.filter((w) => w._id !== id));
   };
@@ -33,22 +32,22 @@ const ProfileScreen = () => {
     setFavorites(favorites.filter((w) => w._id !== id));
   };
 
-    // Check if user exists
-    if (!currentUser || !currentUser._id) {
-      return <div>You don't have the permissions to access this profile.</div>;
-    }
-
   return (
     <div>
       {currentUser && (
         <h1 className="--bs-body-color">
           Hello,&nbsp;
-          <span className="text-primary">{currentUser?.username}</span>
+          <span className="text-primary">{currentUser.username}</span>
+        </h1>
+      )}
+      {username && !currentUser && (
+        <h1 className="--bs-body-color">
+          <span className="text-primary">{username}'s</span> Profile
         </h1>
       )}
       <br />
-      <h4 style={{ textTransform: "capitalize" }} className="text-primary">
-        {currentUser ? "My" : username + "'s "} Favorites
+      <h4 className="text-primary">
+        {username ? username + "'s " : "My"} Favorites
       </h4>
       {/* Conditional rendering if favorites exist */}
       {favorites.length > 0 ? (

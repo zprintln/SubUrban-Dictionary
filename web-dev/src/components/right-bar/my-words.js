@@ -4,7 +4,7 @@ export const MyWords = ({ words, username }) => {
   return (
     <div>
       <strong style={{ textTransform: "capitalize", fontSize: 22, color: "#134FE6" }}>
-        {username ? username + "'s " : "My "}
+        {username ? username.replace("%20", " ") + "'s " : "My "}
           Words
       </strong>
       <div
