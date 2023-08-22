@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export const MyWords = ({ words, username }) => {
   return (
-    <div>
+    <div className="d-none d-lg-block">
       <strong style={{ textTransform: "capitalize", fontSize: 22, color: "#134FE6" }}>
         {username ? username.replace("%20", " ") + "'s " : "My "}
           Words

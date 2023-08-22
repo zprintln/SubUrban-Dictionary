@@ -60,14 +60,16 @@ const ProfileScreen = () => {
       {favorites.length > 0 ? (
         // Map through the favorite words and render WordCard components
         favorites.map((wordDetails) => (
-          <WordCard
-            key={wordDetails._id}
-            wordDetails={wordDetails}
-            showDeleteButton
-            showSaveButton
-            onUnSave={handleUnSave}
-            onDelete={handleDelete}
-          />
+          <div className="col-12 col-lg-12 col-sm-12 col-xl-12">
+            <WordCard 
+              key={wordDetails._id}
+              wordDetails={wordDetails}
+              showDeleteButton
+              showSaveButton
+              onUnSave={handleUnSave}
+              onDelete={handleDelete}
+            />
+          </div>
         ))
       ) : (
         <div>
