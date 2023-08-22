@@ -48,7 +48,7 @@ const NavigationSidebar = () => {
 
   const handleUpdateInfo = async () => {
 
-    if (updatedUsername !== currentUser.username && !updatedPassword) {
+    if (updatedUsername === "" || updatedPassword === "") {
       alert("Please enter your password to update your username.");
       return;
     }
