@@ -1,4 +1,5 @@
 import * as usersDao from "../models/users-dao.js";
+import * as definitionsDao from "../models/definitions-dao.js";
 
 const AuthController = (app) => {
   const register = async (req, res) => {
@@ -56,6 +57,11 @@ const AuthController = (app) => {
     const updatedUserInfo = req.body;
     if (await usersDao.findUserByUsername(updateUserInfo.username)) {
       return res.json(500); // username already exists
+    }
+
+    if (updatedUserInfo.username !== user.username) {
+      // update all post references
+      await definitionsDao.updateDefinitions(user.username, updatedUserInfo.username);
     }
 
     await usersDao.updateUser(user._id, updatedUserInfo);

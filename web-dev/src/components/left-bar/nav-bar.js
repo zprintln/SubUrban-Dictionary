@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { FaHome, FaSearch, FaRegComment, FaUser } from "react-icons/fa";
 import { FiLogIn } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { logoutThunk, updateUserThunk } from "../../services/user-reducer";
-import * as userService from "../../services/user-service";
 
 const NavigationSidebar = () => {
   const { pathname } = useLocation();
   // eslint-disable-next-line
-  const [ignore, active] = pathname.split("/");
+  const [ignore, active, username] = pathname.split("/");
   const { currentUser } = useSelector((state) => {
     return state.user;
   });
@@ -23,24 +22,42 @@ const NavigationSidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [updatedUsername, setUpdatedUsername] = useState(
-    currentUser?.username || ""
-  );
+  const [updatedUsername, setUpdatedUsername] = useState(currentUser?.username);
   const [updatedPassword, setUpdatedPassword] = useState("");
   const [updatedIsModerator, setUpdatedIsModerator] = useState(
-    currentUser?.isModerator || false
+    currentUser?.moderator || false
   );
   const [disabledButton, setDisabledButton] = useState(false);
 
+  const isChangeMade = useCallback(() => {
+    if (!currentUser) return false;
+    return !(
+      currentUser.username === updatedUsername &&
+      currentUser.password === updatedPassword &&
+      currentUser.moderator === updatedIsModerator
+    );
+  }, [currentUser, updatedUsername, updatedPassword, updatedIsModerator]);
+
+  useEffect(() => {
+    setUpdatedUsername(currentUser?.username);
+    setUpdatedPassword("");
+    setUpdatedIsModerator(currentUser?.moderator);
+  }, [active, currentUser]);
+
   useEffect(() => {
     setDisabledButton(!isChangeMade());
-  }, [updatedUsername, updatedPassword, updatedIsModerator]);
+  }, [updatedUsername, updatedPassword, updatedIsModerator, isChangeMade]);
 
   const logout = async () => {
     dispatch(logoutThunk()).then(() => navigate("/home"));
   };
 
   const handleUpdateInfo = async () => {
+    if (updatedUsername === "" || updatedPassword === "") {
+      alert("Please enter your password to update your username.");
+      return;
+    }
+
     try {
       dispatch(
         updateUserThunk({
@@ -52,18 +69,10 @@ const NavigationSidebar = () => {
           },
         })
       ).then(() => setDisabledButton(true));
+      navigate("/profile");
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const isChangeMade = () => {
-    if (!currentUser) return false;
-    return !(
-      currentUser.username === updatedUsername &&
-      currentUser.password === updatedPassword &&
-      currentUser.moderator === updatedIsModerator
-    );
   };
 
   return (
@@ -81,10 +90,10 @@ const NavigationSidebar = () => {
             {link.icon} {link.text}
           </Link>
         ))}
-      {active === "profile" && currentUser && (
+      {active === "profile" && !username && currentUser && (
         <div>
           <div>
-            <label className="form-label mt-2">Username</label>
+            <label className="form-label mt-4">Username</label>
             <input
               type="text"
               className="form-control"

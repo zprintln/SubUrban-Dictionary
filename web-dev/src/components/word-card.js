@@ -26,7 +26,7 @@ const WordCard = ({
   useEffect(() => {
     async function getSaved() {
       await wordService
-        .fetchIsSaved(wordDetails._id, currentUser.username)
+        .fetchIsSaved(wordDetails._id, currentUser._id)
         .then((data) => {
           setIsSaved(data.saved);
         });
@@ -41,19 +41,13 @@ const WordCard = ({
     setIsLoading(true);
     try {
       if (!isSaved) {
-        await wordService.addFavoriteWord(
-          wordDetails._id,
-          currentUser.username
-        );
+        await wordService.addFavoriteWord(wordDetails._id, currentUser._id);
       } else {
-        await wordService.deleteFavoriteWord(
-          wordDetails._id,
-          currentUser.username
-        );
+        await wordService.deleteFavoriteWord(wordDetails._id, currentUser._id);
         onUnSave(wordDetails._id);
       }
       await wordService
-        .fetchIsSaved(wordDetails._id, currentUser.username)
+        .fetchIsSaved(wordDetails._id, currentUser._id)
         .then((data) => {
           setIsSaved(data.saved);
         });
@@ -106,7 +100,14 @@ const WordCard = ({
         </p>
         <p>
           <b>
-            By&nbsp;<Link className="text-primary" style={{textDecoration: "none"}} to={`/profile/${wordDetails.user}`}>{wordDetails.user}</Link>
+            By&nbsp;
+            <Link
+              className="text-primary"
+              style={{ textDecoration: "none" }}
+              to={`/profile/${wordDetails.user}`}
+            >
+              {wordDetails.user}
+            </Link>
             &nbsp;
             {month} {day}, {year}
           </b>

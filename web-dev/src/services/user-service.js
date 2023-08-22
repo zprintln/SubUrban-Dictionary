@@ -39,6 +39,7 @@ export const updateUserInfo = async (currentUsername, updatedInfo) => {
       `${USERS_URL}/${currentUsername}`,
       updatedInfo
     );
+    
     return response.data;
   } catch (error) {
     throw console.log(error);
