@@ -22,10 +22,10 @@ const NavigationSidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [updatedUsername, setUpdatedUsername] = useState("");
+  const [updatedUsername, setUpdatedUsername] = useState(currentUser?.username);
   const [updatedPassword, setUpdatedPassword] = useState("");
   const [updatedIsModerator, setUpdatedIsModerator] = useState(
-    currentUser?.isModerator || false
+    currentUser?.moderator || false
   );
   const [disabledButton, setDisabledButton] = useState(false);
 
@@ -36,7 +36,13 @@ const NavigationSidebar = () => {
       currentUser.password === updatedPassword &&
       currentUser.moderator === updatedIsModerator
     );
-}, [currentUser, updatedUsername, updatedPassword, updatedIsModerator]);
+  }, [currentUser, updatedUsername, updatedPassword, updatedIsModerator]);
+
+  useEffect(() => {
+    setUpdatedUsername(currentUser?.username);
+    setUpdatedPassword("");
+    setUpdatedIsModerator(currentUser?.moderator);
+  }, [active, currentUser]);
 
   useEffect(() => {
     setDisabledButton(!isChangeMade());
@@ -47,7 +53,6 @@ const NavigationSidebar = () => {
   };
 
   const handleUpdateInfo = async () => {
-
     if (updatedUsername === "" || updatedPassword === "") {
       alert("Please enter your password to update your username.");
       return;
@@ -64,7 +69,7 @@ const NavigationSidebar = () => {
           },
         })
       ).then(() => setDisabledButton(true));
-      navigate("/profile"); 
+      navigate("/profile");
     } catch (error) {
       console.log(error);
     }
