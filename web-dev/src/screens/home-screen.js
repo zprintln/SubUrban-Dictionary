@@ -41,7 +41,7 @@ const HomeScreen = () => {
         />
         <AiOutlineSearch
           className="fs-3 position-absolute"
-          style={{ left: "25px", bottom: "3px" }}
+          style={{ left: "25px", bottom: "5px" }}
           onClick={redirectToSearchPage} // Redirect to the search page
         />
       </div>

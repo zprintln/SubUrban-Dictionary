@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import WordCard from "../components/word-card";
 import * as wordService from "../services/word-service";
+import * as userService from "../services/user-service";
 import { useParams } from "react-router-dom";
 
 const ProfileScreen = () => {
