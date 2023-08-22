@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { FaHome, FaSearch, FaRegComment, FaUser } from "react-icons/fa";
 import { FiLogIn } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,19 +31,31 @@ const NavigationSidebar = () => {
   );
   const [disabledButton, setDisabledButton] = useState(false);
 
+  const isChangeMade = useCallback(() => {
+    if (!currentUser) return false;
+    return !(
+      currentUser.username === updatedUsername &&
+      currentUser.password === updatedPassword &&
+      currentUser.moderator === updatedIsModerator
+    );
+}, [currentUser, updatedUsername, updatedPassword, updatedIsModerator]);
+
   useEffect(() => {
+  
     setDisabledButton(!isChangeMade());
-  }, [updatedUsername, updatedPassword, updatedIsModerator]);
+  }, [updatedUsername, updatedPassword, updatedIsModerator, isChangeMade]);
 
   const logout = async () => {
     dispatch(logoutThunk()).then(() => navigate("/home"));
   };
 
   const handleUpdateInfo = async () => {
+
     if (updatedUsername !== currentUser.username && !updatedPassword) {
       alert("Please enter your password to update your username.");
       return;
     }
+
     try {
       dispatch(
         updateUserThunk({
@@ -59,15 +71,6 @@ const NavigationSidebar = () => {
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const isChangeMade = () => {
-    if (!currentUser) return false;
-    return !(
-      currentUser.username === updatedUsername &&
-      currentUser.password === updatedPassword &&
-      currentUser.moderator === updatedIsModerator
-    );
   };
 
   return (
