@@ -41,7 +41,6 @@ const NavigationSidebar = () => {
 }, [currentUser, updatedUsername, updatedPassword, updatedIsModerator]);
 
   useEffect(() => {
-  
     setDisabledButton(!isChangeMade());
   }, [updatedUsername, updatedPassword, updatedIsModerator, isChangeMade]);
 
