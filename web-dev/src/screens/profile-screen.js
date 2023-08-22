@@ -5,23 +5,25 @@ import * as wordService from "../services/word-service";
 import { useParams } from "react-router-dom";
 
 const ProfileScreen = () => {
-  const { currentUser } = useSelector((state) => {
-    return state.user;
-  });
+  const { currentUser } = useSelector((state) => state.user);
   const [favorites, setFavorites] = useState([]);
   const { username } = useParams();
 
   useEffect(() => {
     async function fetchFavoritesFromService() {
-      try {
-        const favoriteWords = await wordService.fetchFavorites(currentUser._id);
-        setFavorites(favoriteWords);
-      } catch (error) {
-        console.log(error);
+      // Check if the current user exists and has an _id property
+      if (currentUser && currentUser._id) {
+        try {
+          const favoriteWords = await wordService.fetchFavorites(currentUser._id);
+          setFavorites(favoriteWords);
+        } catch (error) {
+          console.error("Error fetching favorites:", error);
+          alert("Favorites not found.");
+        }
       }
     }
     fetchFavoritesFromService();
-  }, [currentUser._id]);
+  }, [currentUser]);
   
   const handleUnSave = (id) => {
     setFavorites(favorites.filter((w) => w._id !== id));
@@ -30,6 +32,11 @@ const ProfileScreen = () => {
   const handleDelete = (id) => {
     setFavorites(favorites.filter((w) => w._id !== id));
   };
+
+    // Check if user exists
+    if (!currentUser || !currentUser._id) {
+      return <div>You don't have the permissions to access this profile.</div>;
+    }
 
   return (
     <div>
