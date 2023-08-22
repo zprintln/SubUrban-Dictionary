@@ -79,7 +79,7 @@ const WordCard = ({
   };
 
   return (
-    <div className="card" style={{ marginBottom: "10px" }}>
+    <div className="card w-100" style={{ marginBottom: "10px" }}>
       <div className="card-body">
         <h2 className="text-primary">
           {showLink && (

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export const AddWord = () => {
   return (
-    <div 
+    <div className="d-none d-lg-block"
       style={{
         borderRadius: 50,
         width: "350px",
@@ -14,7 +14,7 @@ export const AddWord = () => {
         marginBottom: "5px",
       }}
     >
-      <div
+      <div 
         style={{
           width: "320px",
           height: "150px",

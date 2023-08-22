@@ -87,11 +87,11 @@ const NavigationSidebar = () => {
               active === link.text ? "active" : ""
             }`}
           >
-            {link.icon} {link.text}
+            {link.icon} <span className="d-none d-md-inline">{link.text}</span>
           </Link>
         ))}
       {active === "profile" && !username && currentUser && (
-        <div>
+        <div className="d-none d-lg-block">
           <div>
             <label className="form-label mt-4">Username</label>
             <input
@@ -102,7 +102,7 @@ const NavigationSidebar = () => {
               placeholder="Username"
             />
 
-            <label className="form-label mt-2">Password</label>
+            <label className="form-label mt-2">Password</label> 
             <input
               type="password"
               className="form-control"
