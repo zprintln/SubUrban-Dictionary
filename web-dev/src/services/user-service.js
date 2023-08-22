@@ -33,7 +33,6 @@ export const profile = async () => {
   return response;
 };
 
-
 export const updateUserInfo = async (currentUsername, updatedInfo) => {
   try {
     const response = await axios.put(`${USERS_URL}/${currentUsername}`, updatedInfo);
