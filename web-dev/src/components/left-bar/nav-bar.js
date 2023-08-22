@@ -87,7 +87,7 @@ const NavigationSidebar = () => {
               active === link.text ? "active" : ""
             }`}
           >
-            {link.icon} {link.text}
+            {link.icon} <span className="d-none d-md-inline">{link.text}</span>
           </Link>
         ))}
       {active === "profile" && !username && currentUser && (
